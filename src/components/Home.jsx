@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FaOpencart } from "react-icons/fa";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -49,7 +50,7 @@ const Home = () => {
                 type="button"
                 className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
               >
-                +
+                <FaOpencart />
               </button>
             </div>
           ))}

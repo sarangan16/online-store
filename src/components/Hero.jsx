@@ -1,32 +1,36 @@
 import React from "react";
+import SplitText from "./SplitText";
 
 const Hero = () => {
   return (
     <div>
-      <main className="dark:bg-gray-800 bg-white relative overflow-hidden">
-        <div className="bg-white dark:bg-[#e63946] flex items-center justify-between relative z-20 overflow-hidden">
-          <div className="container mx-auto px-6 flex py-16 w-full">
-            <div className="sm:w-2/3 lg:w-2/5 flex flex-col justify-center text-right">
-              <h1 className="font-bebas-neue uppercase text-6xl sm:text-8xl font-black flex flex-col leading-none dark:text-white text-gray-800">
-                Buy on
-                <span className="text-5xl sm:text-7xl">Time</span>
-              </h1>
-              <p className="text-sm sm:text-base text-gray-700 dark:text-white">
-                Dimension of reality that makes change possible and
-                understandable. An indefinite and homogeneous environment in
-                which natural events and human existence take place.
-              </p>
-            </div>
+      <section className="text-gray-600 body-font bg-white bg-[#FF5733]">
+        <div className="container mx-auto flex md:px-24 md:py-10 items-center">
+          <div className="lg:flex-grow mt-5 md:mt-0 md:w-1/2 flex flex-col items-center md:text-left">
+            <SplitText
+              text="Lets Online Shop!"
+              className="text-4xl sm:text-6xl md:text-8xl text-[#1d3557] font-bebas-neue uppercase font-black text-right"
+              delay={100}
+              duration={1.5}
+              ease="power3.out"
+              splitType="words"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+              textAlign="center"
+            />
+          </div>
 
-            <div className="hidden sm:block sm:w-1/3 lg:w-3/5 relative">
-              <img
-                src="/images/bear1.png"
-                className="max-w-xs md:max-w-sm m-auto w-full h-full object-cover"
-              />
-            </div>
+          <div className="lg:w-1/2 w-3/6 mb-5 md:mb-0">
+            <img
+              className="object-cover object-center rounded"
+              alt="hero"
+              src="./images/bear1.png"
+            />
           </div>
         </div>
-      </main>
+      </section>
     </div>
   );
 };

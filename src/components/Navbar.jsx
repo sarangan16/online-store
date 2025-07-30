@@ -6,19 +6,15 @@ const Navbar = () => {
 
   return (
     <nav className="shadow bg-white text-black">
-      <header className="h-24 sm:h-32 flex items-center z-30 w-full">
-        <div className="container mx-auto px-6 flex items-center justify-between">
+      <header className="h-24 sm:h-16 flex items-center z-30 w-full">
+        <div className="container mx-auto px-6 flex items-center justify-between h-screen">
           <div className="uppercase text-gray-800 text-[#FF5733] font-black text-3xl">
             KAUFDE
           </div>
 
           <nav className="font-sen text-gray-800 uppercase text-lg lg:flex items-center hidden space-x-6">
-            <Link to="/" className="hover:underline">
-              Home
-            </Link>
-            <Link to="/contact" className="hover:underline">
-              Contact
-            </Link>
+            <Link to="/">Home</Link>
+            <Link to="/contact">Contact</Link>
           </nav>
 
           <button
@@ -34,10 +30,10 @@ const Navbar = () => {
 
       {isOpen && (
         <div className="lg:hidden px-6 pb-4 space-y-2">
-          <Link to="/" className="block text-gray-800 hover:underline">
+          <Link to="/" className="block text-gray-800">
             Home
           </Link>
-          <Link to="/contact" className="block text-gray-800 hover:underline">
+          <Link to="/contact" className="block text-gray-800">
             Contact
           </Link>
         </div>

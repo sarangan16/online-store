@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { FaOpencart } from "react-icons/fa";
+import { FaOpencart, FaStar, FaRegStar } from "react-icons/fa";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
-  console.log(search);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -37,7 +36,7 @@ const Home = () => {
           .map((product) => (
             <div
               key={product.id}
-              className="border rounded p-4 shadow hover:shadow-lg transition"
+              className="flex flex-col justify-between h-full border rounded p-4 shadow hover:shadow-lg transition"
             >
               <img
                 src={product.image}
@@ -46,11 +45,27 @@ const Home = () => {
               />
               <h2 className="text-sm font-semibold mb-2">{product.title}</h2>
               <p className="text-lg font-bold mb-2">${product.price}</p>
+              <div className="flex flex-col items-center space-x-2 mt-2">
+                <div className="flex text-yellow-400">
+                  {Array.from({ length: 5 }, (_, i) =>
+                    i < Math.round(product.rating.rate) ? (
+                      <FaStar key={i} className="w-4 h-4" />
+                    ) : (
+                      <FaRegStar key={i} className="w-4 h-4" />
+                    )
+                  )}
+                </div>
+
+                <span className="text-sm text-gray-600">
+                  {product.rating.rate} ({product.rating.count})
+                </span>
+              </div>
               <button
                 type="button"
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-3"
               >
-                <FaOpencart />
+                Buy
+                {/* <FaOpencart /> */}
               </button>
             </div>
           ))}

@@ -11,6 +11,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import Footer from "./components/Footer";
+import Product from "./components/Product";
 
 function App() {
   const location = useLocation();
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/product/:id" element={<Product />} />
       </Routes>
       <Footer />
     </div>

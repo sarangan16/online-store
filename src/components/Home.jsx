@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaOpencart, FaStar, FaRegStar } from "react-icons/fa";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -16,7 +17,7 @@ const Home = () => {
 
   return (
     <div className="container mx-auto px-4 py-6">
-      <div className="w-full flex items-center justify-center ">
+      <div className="w-full flex items-center justify-center">
         <div className="search-input w-full sm:w-1/2 px-4">
           <input
             type="text"
@@ -38,13 +39,15 @@ const Home = () => {
               key={product.id}
               className="flex flex-col justify-between h-full border rounded p-4 shadow hover:shadow-lg transition"
             >
-              <img
-                src={product.image}
-                alt={product.title}
-                className="h-40 w-full object-contain mb-4"
-              />
-              <h2 className="text-sm font-semibold mb-2">{product.title}</h2>
-              <p className="text-lg font-bold mb-2">${product.price}</p>
+              <Link to={`/product/${product.id}`}>
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  className="h-40 w-full object-contain mb-4"
+                />
+                <h2 className="text-sm font-semibold mb-2">{product.title}</h2>
+                <p className="text-lg font-bold mb-2">${product.price}</p>
+              </Link>
               <div className="flex flex-col items-center space-x-2 mt-2">
                 <div className="flex text-yellow-400">
                   {Array.from({ length: 5 }, (_, i) =>
@@ -65,7 +68,6 @@ const Home = () => {
                 className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-3"
               >
                 Buy
-                {/* <FaOpencart /> */}
               </button>
             </div>
           ))}

@@ -9,11 +9,11 @@ const Navbar = () => {
       <header className="h-24 sm:h-16 flex items-center z-30 w-full">
         <div className="container mx-auto px-6 flex items-center justify-between h-screen">
           <div className="text-[#1d3557] text-3xl">
-            <a href="">
+            <Link to="/">
               <span className="text-[#000000]">Ka</span>
               <span className="text-[#DD0000]">uf.</span>
               <span className="text-[#FFCE00]">DE</span>
-            </a>
+            </Link>
           </div>
 
           <nav className="text-gray-800 uppercase text-lg lg:flex items-center hidden space-x-6">

@@ -8,11 +8,11 @@ const Navbar = () => {
     <nav className="shadow bg-white text-black">
       <header className="h-24 sm:h-16 flex items-center z-30 w-full">
         <div className="container mx-auto px-6 flex items-center justify-between h-screen">
-          <div className="uppercase text-gray-800 text-[#FF5733] font-black text-3xl">
-            KAUFDE
+          <div className="text-[#1d3557] text-3xl">
+            <a href="">KaufDE</a>
           </div>
 
-          <nav className="font-sen text-gray-800 uppercase text-lg lg:flex items-center hidden space-x-6">
+          <nav className="text-gray-800 uppercase text-lg lg:flex items-center hidden space-x-6">
             <Link to="/">Home</Link>
             <Link to="/contact">Contact</Link>
           </nav>

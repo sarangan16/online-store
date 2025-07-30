@@ -13,7 +13,7 @@ const Navbar = () => {
           </div>
 
           <nav className="text-gray-800 uppercase text-lg lg:flex items-center hidden space-x-6">
-            <Link to="/">Home</Link>
+            <Link to="/">Store</Link>
             <Link to="/contact">Contact</Link>
           </nav>
 

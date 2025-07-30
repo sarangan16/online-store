@@ -10,6 +10,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
+import Footer from "./components/Footer";
 
 function App() {
   const location = useLocation();
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

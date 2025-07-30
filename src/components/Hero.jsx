@@ -5,7 +5,7 @@ import { CgScrollV } from "react-icons/cg";
 const Hero = () => {
   return (
     <div>
-      <section className="min-h-[60vh] text-gray-600 body-font bg-white bg-[#FF5733] overflow-x-hidden pt-24">
+      <section className="min-h-[60vh] text-gray-600 body-font bg-[#FF5733] overflow-x-hidden pt-24">
         <div className="container mx-auto flex flex-col md:flex-row md:px-24 md:py-10 items-center min-h-full">
           <div className="lg:flex-grow md:mt-0 flex flex-col items-center md:text-left text-center w-full">
             <SplitText
@@ -21,14 +21,6 @@ const Hero = () => {
               rootMargin="-100px"
             />
           </div>
-
-          {/*} <div className="lg:w-1/2 w-3/6 md:mb-0 md:mt-0">
-            <img
-              className="object-cover object-center rounded w-full"
-              alt="hero"
-              src="./images/bear1.png"
-            />
-          </div>*/}
         </div>
       </section>
     </div>

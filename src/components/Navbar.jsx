@@ -1,39 +1,48 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <>
-      <nav class=" shadow dark:bg-white-800 text-black">
-        <header class="h-24 sm:h-32 flex items-center z-30 w-full">
-          <div class="container mx-auto px-6 flex items-center justify-between">
-            <div class="uppercase text-gray-800 dark text-[#FF5733] font-black text-3xl">
-              KAUFDE
-            </div>
-            <div class="flex items-center">
-              <nav class="font-sen text-gray-800 dark:text-black uppercase text-lg lg:flex items-center hidden">
-                <a
-                  href="#"
-                  class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-                >
-                  Shop
-                </a>
-                <a
-                  href="#"
-                  class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700x"
-                >
-                  Contact
-                </a>
-              </nav>
-              <button class="lg:hidden flex flex-col ml-4">
-                <span class="w-6 h-1 bg-gray-800 dark:bg-white mb-1"></span>
-                <span class="w-6 h-1 bg-gray-800 dark:bg-white mb-1"></span>
-                <span class="w-6 h-1 bg-gray-800 dark:bg-white mb-1"></span>
-              </button>
-            </div>
+    <nav className="shadow bg-white text-black">
+      <header className="h-24 sm:h-32 flex items-center z-30 w-full">
+        <div className="container mx-auto px-6 flex items-center justify-between">
+          <div className="uppercase text-gray-800 text-[#FF5733] font-black text-3xl">
+            KAUFDE
           </div>
-        </header>
-      </nav>
-    </>
+
+          <nav className="font-sen text-gray-800 uppercase text-lg lg:flex items-center hidden space-x-6">
+            <Link to="/" className="hover:underline">
+              Home
+            </Link>
+            <Link to="/contact" className="hover:underline">
+              Contact
+            </Link>
+          </nav>
+
+          <button
+            className="lg:hidden flex flex-col ml-4"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <span className="w-6 h-1 bg-gray-800 mb-1"></span>
+            <span className="w-6 h-1 bg-gray-800 mb-1"></span>
+            <span className="w-6 h-1 bg-gray-800 mb-1"></span>
+          </button>
+        </div>
+      </header>
+
+      {isOpen && (
+        <div className="lg:hidden px-6 pb-4 space-y-2">
+          <Link to="/" className="block text-gray-800 hover:underline">
+            Home
+          </Link>
+          <Link to="/contact" className="block text-gray-800 hover:underline">
+            Contact
+          </Link>
+        </div>
+      )}
+    </nav>
   );
 };
 

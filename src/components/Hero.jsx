@@ -9,7 +9,7 @@ const Hero = () => {
         <div className="container mx-auto flex flex-col md:flex-row md:px-24 md:py-10 items-center min-h-full">
           <div className="lg:flex-grow md:mt-0 flex flex-col items-center md:text-left text-center w-full">
             <SplitText
-              text="Shop Smarter, Live Better."
+              text="Elevate Your Everyday Shopping"
               className="text-4xl sm:text-6xl md:text-8xl text-white uppercase"
               delay={100}
               duration={1.5}

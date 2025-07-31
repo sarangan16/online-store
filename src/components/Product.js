@@ -35,7 +35,7 @@ const Product = () => {
               ${product.price}
             </p>
 
-            <div className="flex text-yellow-400 mb-4">
+            <div className="flex text-yellow-400 mb-4 justify-center">
               {Array.from({ length: 5 }, (_, i) =>
                 i < Math.round(product.rating.rate) ? (
                   <FaStar key={i} className="w-6 h-6" />

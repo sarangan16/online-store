@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,9 @@ const Navbar = () => {
           <nav className="text-gray-800 uppercase text-lg lg:flex items-center hidden space-x-6">
             <Link to="/">Store</Link>
             <Link to="/contact">Contact</Link>
+            <a href="">
+              <FaShoppingCart />
+            </a>
           </nav>
 
           <button

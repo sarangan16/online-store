@@ -63,12 +63,12 @@ const Home = () => {
                   {product.rating.rate} ({product.rating.count})
                 </span>
               </div>
-              <button
+              {/*<button
                 type="button"
                 className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-3"
               >
                 Buy
-              </button>
+              </button> */}
             </div>
           ))}
       </div>

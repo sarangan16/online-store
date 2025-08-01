@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { FaOpencart, FaStar, FaRegStar } from "react-icons/fa";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { FaStar, FaRegStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
+  const [categories, setCategories] = useState(["ALL"]);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -15,16 +16,39 @@ const Home = () => {
       });
   }, []);
 
+  function LoadCategories() {
+    fetch("https://fakestoreapi.com/products/categories")
+      .then((response) => response.json())
+      .then((data) => {
+        data.unshift("All");
+        setCategories(data);
+      });
+  }
+  useEffect(() => {
+    LoadCategories();
+  }, []);
+
   return (
     <div className="container mx-auto px-4 py-6">
-      <div className="w-full flex items-center justify-center">
-        <div className="search-input w-full sm:w-1/2 px-4">
-          <input
-            type="text"
-            className="w-full px-6 py-3 rounded-full shadow-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300 bg-white"
-            placeholder="search products"
-            onChange={(e) => setSearch(e.target.value)}
-          />
+      <div className="flex">
+        <div className="w-full flex  justify-center">
+          <div className="search-input w-full px-4">
+            <input
+              type="text"
+              className="w-full px-6 py-3 rounded-full shadow-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300 bg-white"
+              placeholder="search products"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="select-category w-48">
+          <nav>
+            <select className="shadow-md border border-gray-300 py-3">
+              {categories.map((category) => (
+                <option key={category}>{category.toUpperCase()}</option>
+              ))}
+            </select>
+          </nav>
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">

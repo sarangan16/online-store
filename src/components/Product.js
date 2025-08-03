@@ -24,9 +24,9 @@ const Product = () => {
           <img
             src={product.image}
             alt={product.title}
-            className="w-1/3 object-contain"
+            className="w-full md:w-1/3 object-contain mx-auto max-h-64"
           />
-          <div className="flex flex-col w-1/2">
+          <div className="flex flex-col w-full md:w-2/3">
             <h2 className="text-3xl font-semibold mb-4">{product.title}</h2>
 
             <p className="text-lg text-gray-700 mb-4">{product.description}</p>

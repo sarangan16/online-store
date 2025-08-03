@@ -41,7 +41,7 @@ const Contact = () => {
 
                 <SplitText
                   text="Get in touch!"
-                  className="text-4xl sm:text-6xl md:text-8xl text-[#FF5733] uppercase font-black"
+                  className="text-4xl sm:text-6xl md:text-7xl text-[#FF5733] uppercase font-black"
                   delay={100}
                   duration={1.5}
                   ease="power3.out"

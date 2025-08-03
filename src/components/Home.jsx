@@ -2,25 +2,20 @@ import React, { useState, useEffect } from "react";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const Home = () => {
+// changing starts now
+const Home = (props) => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
-  const [categories, setCategories] = useState(["ALL"]);
-
-  // useEffect(() => {
-  //   fetch("https://fakestoreapi.com/products")
-  //     .then((res) => res.json())
-  //     .then((data) => setProducts(data))
-  //     .catch((err) => {
-  //       alert("Failed to load");
-  //     });
-  // }, []);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   function loadProducts(url) {
+    setLoading(true);
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
+        setLoading(false);
       });
   }
 
@@ -32,24 +27,30 @@ const Home = () => {
         setCategories(data);
       });
   }
+
   useEffect(() => {
     loadProducts("https://fakestoreapi.com/products/");
     LoadCategories();
-  }, []);
+  }, [props.cartItems.length]); // fixed here
 
   function handleCategoryChange(e) {
     const value = e.target.value.toLowerCase();
-    if (value == "all") {
+    if (value === "all") {
       loadProducts("https://fakestoreapi.com/products/");
     } else {
       loadProducts(`https://fakestoreapi.com/products/category/${value}`);
     }
   }
 
+  function addToCart(e) {
+    alert("Item Added to cart");
+    props.addToCart(e.target.id);
+  }
+
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="flex">
-        <div className="w-full flex  justify-center">
+        <div className="w-full flex justify-center">
           <div className="search-input w-full px-4">
             <input
               type="text"
@@ -72,6 +73,7 @@ const Home = () => {
           </nav>
         </div>
       </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
         {products
           .filter((product) => {
@@ -108,12 +110,14 @@ const Home = () => {
                   {product.rating.rate} ({product.rating.count})
                 </span>
               </div>
-              {/*<button
+              <button
+                id={product.id}
+                onClick={addToCart}
                 type="button"
                 className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-3"
               >
-                Buy
-              </button> */}
+                Add To Cart
+              </button>
             </div>
           ))}
       </div>

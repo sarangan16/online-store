@@ -2,23 +2,26 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FaStar, FaRegStar } from "react-icons/fa";
 
-const Product = () => {
+const Product = ({ addToCart }) => {
   const [product, setProduct] = useState(null);
   const { id } = useParams();
 
-  useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/${id}`)
-      .then((res) => res.json())
-      .then((data) => setProduct(data))
-      .catch((err) => {
-        alert("Failed to load product details");
-      });
-  }, [id]);
+  useEffect(
+    (addToCart) => {
+      fetch(`https://fakestoreapi.com/products/${id}`)
+        .then((res) => res.json())
+        .then((data) => setProduct(data))
+        .catch((err) => {
+          alert("Failed to load product details");
+        });
+    },
+    [id]
+  );
 
   if (!product) return <div>Data is loading...</div>;
 
   return (
-    <div className="container mx-auto px-4 py-6 w-3/4 mt-10">
+    <div className="container mx-auto px-4 py-6 w-3/4 mt-16">
       <div className="flex justify-center">
         <div className="flex flex-col md:flex-row gap-8">
           <img
@@ -50,6 +53,10 @@ const Product = () => {
 
             <button
               type="button"
+              onClick={() => {
+                alert("Item Added to cart");
+                addToCart(product.id);
+              }}
               className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700"
             >
               Add to Cart

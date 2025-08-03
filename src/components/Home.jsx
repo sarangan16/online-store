@@ -7,26 +7,44 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [categories, setCategories] = useState(["ALL"]);
 
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((data) => setProducts(data))
-      .catch((err) => {
-        alert("Failed to load");
+  // useEffect(() => {
+  //   fetch("https://fakestoreapi.com/products")
+  //     .then((res) => res.json())
+  //     .then((data) => setProducts(data))
+  //     .catch((err) => {
+  //       alert("Failed to load");
+  //     });
+  // }, []);
+
+  function loadProducts(url) {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        setProducts(data);
       });
-  }, []);
+  }
 
   function LoadCategories() {
     fetch("https://fakestoreapi.com/products/categories")
       .then((response) => response.json())
       .then((data) => {
-        data.unshift("All");
+        data.unshift("all");
         setCategories(data);
       });
   }
   useEffect(() => {
+    loadProducts("https://fakestoreapi.com/products/");
     LoadCategories();
   }, []);
+
+  function handleCategoryChange(e) {
+    const value = e.target.value.toLowerCase();
+    if (value == "all") {
+      loadProducts("https://fakestoreapi.com/products/");
+    } else {
+      loadProducts(`https://fakestoreapi.com/products/category/${value}`);
+    }
+  }
 
   return (
     <div className="container mx-auto px-4 py-6">
@@ -43,7 +61,10 @@ const Home = () => {
         </div>
         <div className="select-category w-48">
           <nav>
-            <select className="shadow-md border border-gray-300 py-3">
+            <select
+              onChange={handleCategoryChange}
+              className="shadow-md border border-gray-300 py-3"
+            >
               {categories.map((category) => (
                 <option key={category}>{category.toUpperCase()}</option>
               ))}

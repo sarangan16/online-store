@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-// changing starts now
 const Home = (props) => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
@@ -31,8 +30,7 @@ const Home = (props) => {
   useEffect(() => {
     loadProducts("https://fakestoreapi.com/products/");
     LoadCategories();
-  }, [props.cartItems.length]); // fixed here
-
+  }, [props.cartItems.length]);
   function handleCategoryChange(e) {
     const value = e.target.value.toLowerCase();
     if (value === "all") {
@@ -74,17 +72,21 @@ const Home = (props) => {
         </div>
       </div>
 
+      {loading && (
+        <div className="text-center text-lg font-semibold text-gray-600 mt-8">
+          Loading products...
+        </div>
+      )}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
         {products
           .filter((product) => {
-            return search.toLowerCase() === ""
-              ? product
-              : product.title.toLowerCase().includes(search);
+            return product.title.toLowerCase().includes(search.toLowerCase());
           })
           .map((product) => (
             <div
               key={product.id}
-              className="flex flex-col justify-between h-full border rounded p-4 shadow hover:shadow-lg transition"
+              className="flex flex-col justify-between h-full border rounded p-4 shadow hover:shadow-xl transition"
             >
               <Link to={`/product/${product.id}`}>
                 <img

@@ -1,6 +1,5 @@
 import React from "react";
 import SplitText from "./SplitText";
-import { CgScrollV } from "react-icons/cg";
 
 const Hero = () => {
   return (

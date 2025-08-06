@@ -4,12 +4,7 @@ import Home from "./components/Home";
 import Hero from "./components/Hero";
 import Contact from "./components/Contact";
 import { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Footer from "./components/Footer";
 import Product from "./components/Product";
 
@@ -27,10 +22,12 @@ function App() {
         setItemCount((prev) => prev + 1);
       });
   }
+
   function removeFromCart(id) {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
     setItemCount((prev) => prev - 1);
   }
+
   return (
     <div className="App">
       {location.pathname === "/" && <Hero />}

@@ -31,12 +31,17 @@ const Home = (props) => {
     loadProducts("https://fakestoreapi.com/products/");
     LoadCategories();
   }, [props.cartItems.length]);
+
   function handleCategoryChange(e) {
-    const value = e.target.value.toLowerCase();
+    const value = e.target.value;
     if (value === "all") {
       loadProducts("https://fakestoreapi.com/products/");
     } else {
-      loadProducts(`https://fakestoreapi.com/products/category/${value}`);
+      loadProducts(
+        `https://fakestoreapi.com/products/category/${encodeURIComponent(
+          value
+        )}`
+      );
     }
   }
 
@@ -48,7 +53,7 @@ const Home = (props) => {
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="flex">
-        <div className="w-full flex justify-center">
+        <div className="w-full justify-center">
           <div className="search-input w-full px-4">
             <input
               type="text"
@@ -65,7 +70,9 @@ const Home = (props) => {
               className="shadow-md border border-gray-300 py-3"
             >
               {categories.map((category) => (
-                <option key={category}>{category.toUpperCase()}</option>
+                <option key={category} value={category}>
+                  {category}
+                </option>
               ))}
             </select>
           </nav>
@@ -90,9 +97,13 @@ const Home = (props) => {
             >
               <Link to={`/product/${product.id}`}>
                 <img
-                  src={product.image}
+                  src={product.image || "https://via.placeholder.com/150"}
                   alt={product.title}
                   className="h-40 w-full object-contain mb-4"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://via.placeholder.com/150";
+                  }}
                 />
                 <h2 className="text-sm font-semibold mb-2">{product.title}</h2>
                 <p className="text-lg font-bold mb-2">${product.price}</p>

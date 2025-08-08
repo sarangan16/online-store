@@ -4,12 +4,15 @@ import SplitText from "./SplitText";
 const Hero = () => {
   return (
     <div>
-      <section className="py-24 text-gray-600 body-font bg-[#FF5733] overflow-x-hidden">
+      <section
+        className="relative py-20 md:py-24 text-gray-600 body-font overflow-x-hidden bg-cover bg-center bg-no-repeat min-h-[400px] shadow-lg"
+        style={{ backgroundImage: `url(/images/hero.jpg)` }}
+      >
         <div className="container mx-auto flex flex-col md:flex-row md:px-24 md:py-10 items-center min-h-full">
-          <div className="lg:flex-grow md:mt-0 flex flex-col items-center md:text-left text-center w-full">
+          <div className="lg:flex-grow flex flex-col items-center text-center md:items-start md:text-left w-full">
             <SplitText
               text="Elevate Your Everyday Shopping"
-              className="text-4xl sm:text-6xl md:text-8xl text-white uppercase"
+              className="text-4xl sm:text-6xl md:text-8xl text-white uppercase "
               delay={100}
               duration={1.5}
               ease="power3.out"

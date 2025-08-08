@@ -37,17 +37,8 @@ function App() {
         removeFromCart={removeFromCart}
       />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              cartItems={cartItems}
-              itemCount={itemCount}
-              removeFromCart={removeFromCart}
-              addToCart={addToCart}
-            />
-          }
-        />
+        <Route path="/" element={<Home addToCart={addToCart} />} />
+
         <Route path="/contact" element={<Contact />} />
         <Route
           path="/product/:id"

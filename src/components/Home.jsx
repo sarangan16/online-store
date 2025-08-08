@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
+import Toast from "./Toast";
 const Home = (props) => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   function loadProducts(url) {
     setLoading(true);
@@ -57,12 +58,15 @@ const Home = (props) => {
   }
 
   function addToCart(e) {
-    alert("Item Added to cart");
     props.addToCart(e.target.id);
+    setToastMessage("Item added to cart!");
   }
 
   return (
     <div className="container mx-auto px-4 py-6">
+      {toastMessage && (
+        <Toast message={toastMessage} onClose={() => setToastMessage("")} />
+      )}
       <div className="flex">
         <div className="w-full justify-center">
           <div className="search-input w-full px-4">
@@ -82,7 +86,7 @@ const Home = (props) => {
             >
               {categories.map((category) => (
                 <option key={category} value={category}>
-                  {category}
+                  {category.toUpperCase()}
                 </option>
               ))}
             </select>
@@ -155,4 +159,4 @@ const Home = (props) => {
   );
 };
 
-export default Home;
+export default React.memo(Home);

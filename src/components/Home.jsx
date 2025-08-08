@@ -13,7 +13,17 @@ const Home = (props) => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        setProducts(data);
+        let fixedData = data;
+
+        if (url.includes("/category/")) {
+          fixedData = data.map((product) => {
+            const imageUrl = product.image;
+            const newUrl = imageUrl.replace(/\.(jpg|png)$/, "t.png");
+            return { ...product, image: newUrl };
+          });
+        }
+
+        setProducts(fixedData);
         setLoading(false);
       });
   }
@@ -28,15 +38,16 @@ const Home = (props) => {
   }
 
   useEffect(() => {
-    loadProducts("https://fakestoreapi.com/products/");
+    loadProducts("https://fakestoreapi.com/products");
     LoadCategories();
-  }, [props.cartItems.length]);
+  }, []);
 
   function handleCategoryChange(e) {
     const value = e.target.value;
     if (value === "all") {
       loadProducts("https://fakestoreapi.com/products/");
     } else {
+      const category = value.toLowerCase().trim();
       loadProducts(
         `https://fakestoreapi.com/products/category/${encodeURIComponent(
           value
@@ -87,52 +98,58 @@ const Home = (props) => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
         {products
-          .filter((product) => {
-            return product.title.toLowerCase().includes(search.toLowerCase());
-          })
-          .map((product) => (
-            <div
-              key={product.id}
-              className="flex flex-col justify-between h-full border rounded p-4 shadow hover:shadow-xl transition"
-            >
-              <Link to={`/product/${product.id}`}>
-                <img
-                  src={product.image || "https://via.placeholder.com/150"}
-                  alt={product.title}
-                  className="h-40 w-full object-contain mb-4"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = "https://via.placeholder.com/150";
-                  }}
-                />
-                <h2 className="text-sm font-semibold mb-2">{product.title}</h2>
-                <p className="text-lg font-bold mb-2">${product.price}</p>
-              </Link>
-              <div className="flex flex-col items-center space-x-2 mt-2">
-                <div className="flex text-yellow-400">
-                  {Array.from({ length: 5 }, (_, i) =>
-                    i < Math.round(product.rating.rate) ? (
-                      <FaStar key={i} className="w-4 h-4" />
-                    ) : (
-                      <FaRegStar key={i} className="w-4 h-4" />
-                    )
-                  )}
-                </div>
-
-                <span className="text-sm text-gray-600">
-                  {product.rating.rate} ({product.rating.count})
-                </span>
-              </div>
-              <button
-                id={product.id}
-                onClick={addToCart}
-                type="button"
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-3"
+          .filter((product) =>
+            product.title.toLowerCase().includes(search.toLowerCase())
+          )
+          .map((product) => {
+            return (
+              <div
+                key={product.id}
+                className="flex flex-col justify-between h-full border rounded p-4 shadow hover:shadow-xl transition"
               >
-                Add To Cart
-              </button>
-            </div>
-          ))}
+                <Link to={`/product/${product.id}`}>
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="h-40 w-full object-contain mb-4"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src =
+                        "https://dummyimage.com/150x150/cccccc/000000&text=No+Image";
+                    }}
+                  />
+
+                  <h2 className="text-sm font-semibold mb-2">
+                    {product.title}
+                  </h2>
+                  <p className="text-lg font-bold mb-2">${product.price}</p>
+                </Link>
+                <div className="flex flex-col items-center space-x-2 mt-2">
+                  <div className="flex text-yellow-400">
+                    {Array.from({ length: 5 }, (_, i) =>
+                      i < Math.round(product.rating.rate) ? (
+                        <FaStar key={i} className="w-4 h-4" />
+                      ) : (
+                        <FaRegStar key={i} className="w-4 h-4" />
+                      )
+                    )}
+                  </div>
+
+                  <span className="text-sm text-gray-600">
+                    {product.rating.rate} ({product.rating.count})
+                  </span>
+                </div>
+                <button
+                  id={product.id}
+                  onClick={addToCart}
+                  type="button"
+                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-3"
+                >
+                  Add To Cart
+                </button>
+              </div>
+            );
+          })}
       </div>
     </div>
   );

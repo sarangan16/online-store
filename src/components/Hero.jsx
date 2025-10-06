@@ -1,31 +1,57 @@
-import React from "react";
-import SplitText from "./SplitText";
+import React, { useState, useEffect } from "react";
+import photo1 from "../images/pic1.jpg";
+import photo2 from "../images/pic2.jpg";
+import photo3 from "../images/pic3.png";
+import photo4 from "../images/pic4.jpg";
+
+const images = [photo1, photo2, photo3, photo4];
 
 const Hero = () => {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div>
-      <section
-        className="relative py-20 md:py-24 text-gray-600 body-font overflow-x-hidden bg-cover bg-center bg-no-repeat min-h-[400px] shadow-lg"
-        style={{ backgroundImage: `url(/images/shopping.png)` }}
-      >
-        <div className="container mx-auto flex flex-col md:flex-row md:px-24 md:py-10 items-center min-h-full">
-          <div className="lg:flex-grow flex flex-col items-center text-center md:items-start md:text-left w-full">
-            <SplitText
-              text="Elevate Your Everyday Shopping"
-              className="text-4xl sm:text-6xl md:text-8xl text-white uppercase "
-              delay={100}
-              duration={1.5}
-              ease="power3.out"
-              splitType="words"
-              from={{ opacity: 0, y: 40 }}
-              to={{ opacity: 1, y: 0 }}
-              threshold={0.1}
-              rootMargin="-100px"
-            />
-          </div>
-        </div>
-      </section>
-    </div>
+    <section className="relative flex flex-col justify-center items-center text-center overflow-hidden h-[80vh]">
+      <div
+        className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
+        style={{ backgroundImage: `url(${images[current]})` }}
+      ></div>
+
+      <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+
+      <div className="relative z-10 px-6 py-12 text-white max-w-2xl">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4">
+          Discover Your Next Favorite
+        </h1>
+        <p className="text-lg sm:text-xl mb-6">
+          Browse curated collections and find products you love.
+        </p>
+        <a
+          href="#home"
+          className="bg-indigo-600 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-indigo-700 transition transform hover:-translate-y-1"
+        >
+          Start Shopping
+        </a>
+      </div>
+
+      <div className="absolute bottom-10 flex space-x-2">
+        {images.map((_, idx) => (
+          <span
+            key={idx}
+            className={`w-3 h-3 rounded-full cursor-pointer ${
+              idx === current ? "bg-white" : "bg-gray-400"
+            }`}
+            onClick={() => setCurrent(idx)}
+          ></span>
+        ))}
+      </div>
+    </section>
   );
 };
 

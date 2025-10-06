@@ -27,32 +27,22 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-white py-8 mt-10">
-      <div className="flex flex-col md:flex-row max-w-5xl mx-auto p-8 items-center md:items-start">
-        <div className="contact-hero-text md:w-1/2 pr-8 mb-8 md:mb-0 flex items-center justify-center md:justify-start">
-          <div className="w-full max-w-6xl px-4 sm:px-6">
-            <div className="grid grid-cols-1">
-              <div className="flex flex-col justify-center text-center md:text-left z-10 h-full">
-                <img
-                  src="./images/bear.png"
-                  className="w-64 md:w-80"
-                  alt="Bear"
-                />
-
-                <SplitText
-                  text="Get in touch!"
-                  className="text-4xl sm:text-6xl md:text-7xl text-[#FF5733] uppercase font-black"
-                  delay={100}
-                  duration={1.5}
-                  ease="power3.out"
-                  splitType="words"
-                  from={{ opacity: 0, y: 40 }}
-                  to={{ opacity: 1, y: 0 }}
-                  threshold={0.1}
-                  rootMargin="-100px"
-                />
-              </div>
-            </div>
+    <div className="min-h-screen flex flex-col justify-center items-center bg-white py-16">
+      <div className="flex flex-col md:flex-row max-w-5xl mx-auto w-full p-8 items-center md:items-stretch gap-8">
+        <div className="contact-hero-text md:w-1/2 flex items-center justify-center">
+          <div className="text-center md:text-left">
+            <SplitText
+              text="Get in touch!"
+              className="text-4xl sm:text-6xl md:text-7xl text-[#FF5733] uppercase font-black leading-tight"
+              delay={100}
+              duration={1.5}
+              ease="power3.out"
+              splitType="words"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+            />
           </div>
         </div>
 

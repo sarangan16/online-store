@@ -1,97 +1,111 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import Toast from "./Toast";
-const Home = (props) => {
+
+gsap.registerPlugin(ScrollTrigger);
+
+const Home = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
-  function loadProducts(url) {
+  const cardsRef = useRef([]);
+
+  const loadProducts = async (url) => {
     setLoading(true);
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        let fixedData = data;
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      setProducts(data);
+    } catch (err) {
+      console.error("Failed to load products:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        if (url.includes("/category/")) {
-          fixedData = data.map((product) => {
-            const imageUrl = product.image;
-            const newUrl = imageUrl.replace(/\.(jpg|png)$/, "t.png");
-            return { ...product, image: newUrl };
-          });
-        }
-
-        setProducts(fixedData);
-        setLoading(false);
-      });
-  }
-
-  function LoadCategories() {
-    fetch("https://fakestoreapi.com/products/categories")
-      .then((response) => response.json())
-      .then((data) => {
-        data.unshift("all");
-        setCategories(data);
-      });
-  }
+  const loadCategories = async () => {
+    try {
+      const res = await fetch("https://fakestoreapi.com/products/categories");
+      const data = await res.json();
+      data.unshift("all");
+      setCategories(data);
+    } catch (err) {
+      console.error("Failed to load categories:", err);
+    }
+  };
 
   useEffect(() => {
     loadProducts("https://fakestoreapi.com/products");
-    LoadCategories();
+    loadCategories();
   }, []);
 
-  function handleCategoryChange(e) {
+  useEffect(() => {
+    if (cardsRef.current.length > 0) {
+      gsap.fromTo(
+        cardsRef.current,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: cardsRef.current[0],
+            start: "top 90%",
+          },
+        }
+      );
+    }
+  }, [products]);
+
+  const handleCategoryChange = (e) => {
     const value = e.target.value;
     if (value === "all") {
       loadProducts("https://fakestoreapi.com/products/");
     } else {
-      const category = value.toLowerCase().trim();
       loadProducts(
         `https://fakestoreapi.com/products/category/${encodeURIComponent(
           value
         )}`
       );
     }
-  }
+  };
 
-  function addToCart(e) {
-    props.addToCart(e.target.id);
+  const handleAddToCart = (e) => {
+    addToCart(e.target.id);
     setToastMessage("Item added to cart!");
-  }
+  };
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div id="home" className="scroll-mt-24 container mx-auto px-4 py-12">
       {toastMessage && (
         <Toast message={toastMessage} onClose={() => setToastMessage("")} />
       )}
-      <div className="flex">
-        <div className="w-full justify-center">
-          <div className="search-input w-full px-4">
-            <input
-              type="text"
-              className="w-full px-6 py-3 rounded-full shadow-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300 bg-white"
-              placeholder="search products"
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="select-category w-48">
-          <nav>
-            <select
-              onChange={handleCategoryChange}
-              className="shadow-md border border-gray-300 py-3"
-            >
-              {categories.map((category) => (
-                <option key={category} value={category}>
-                  {category.toUpperCase()}
-                </option>
-              ))}
-            </select>
-          </nav>
-        </div>
+
+      <div className="flex flex-col md:flex-row items-center gap-4 mb-12">
+        <input
+          type="text"
+          placeholder="🔍 Search products..."
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full md:flex-1 px-6 py-3 rounded-full border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+        />
+        <select
+          onChange={handleCategoryChange}
+          className="w-full md:w-48 px-4 py-3 rounded-full border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+        >
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat.toUpperCase()}
+            </option>
+          ))}
+        </select>
       </div>
 
       {loading && (
@@ -100,60 +114,67 @@ const Home = (props) => {
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
+      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-8 space-y-8">
         {products
-          .filter((product) =>
-            product.title.toLowerCase().includes(search.toLowerCase())
-          )
-          .map((product) => {
-            return (
-              <div
-                key={product.id}
-                className="flex flex-col justify-between h-full border rounded p-4 shadow hover:shadow-xl transition"
-              >
-                <Link to={`/product/${product.id}`}>
+          .filter((p) => p.title.toLowerCase().includes(search.toLowerCase()))
+          .map((product, i) => (
+            <div
+              key={product.id}
+              ref={(el) => (cardsRef.current[i] = el)}
+              className="break-inside-avoid bg-white rounded-3xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 p-6"
+            >
+              <Link to={`/product/${product.id}`} className="block mb-4">
+                <div className="w-full h-72 flex items-center justify-center rounded-2xl bg-gray-50 overflow-hidden">
                   <img
                     src={product.image}
                     alt={product.title}
-                    className="h-40 w-full object-contain mb-4"
+                    className="object-contain max-h-full transition-transform duration-300 hover:scale-105"
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src =
                         "https://dummyimage.com/150x150/cccccc/000000&text=No+Image";
                     }}
                   />
-
-                  <h2 className="text-sm font-semibold mb-2">
-                    {product.title}
-                  </h2>
-                  <p className="text-lg font-bold mb-2">${product.price}</p>
-                </Link>
-                <div className="flex flex-col items-center space-x-2 mt-2">
-                  <div className="flex text-yellow-400">
-                    {Array.from({ length: 5 }, (_, i) =>
-                      i < Math.round(product.rating.rate) ? (
-                        <FaStar key={i} className="w-4 h-4" />
-                      ) : (
-                        <FaRegStar key={i} className="w-4 h-4" />
-                      )
-                    )}
-                  </div>
-
-                  <span className="text-sm text-gray-600">
-                    {product.rating.rate} ({product.rating.count})
-                  </span>
                 </div>
-                <button
-                  id={product.id}
-                  onClick={addToCart}
-                  type="button"
-                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-3"
-                >
-                  Add To Cart
-                </button>
+              </Link>
+
+              <Link
+                to={`/product/${product.id}`}
+                className="block text-center mb-2"
+              >
+                <h2 className="text-base font-semibold text-gray-800 hover:text-indigo-600 transition-colors">
+                  {product.title}
+                </h2>
+              </Link>
+
+              <p className="text-lg font-bold text-gray-900 mb-3 text-center">
+                ${product.price}
+              </p>
+
+              <div className="flex justify-center items-center gap-2 mb-5">
+                <div className="flex text-yellow-400">
+                  {Array.from({ length: 5 }, (_, i) =>
+                    i < Math.round(product.rating.rate) ? (
+                      <FaStar key={i} className="w-4 h-4" />
+                    ) : (
+                      <FaRegStar key={i} className="w-4 h-4" />
+                    )
+                  )}
+                </div>
+                <span className="text-sm text-gray-500">
+                  ({product.rating.count})
+                </span>
               </div>
-            );
-          })}
+
+              <button
+                id={product.id}
+                onClick={handleAddToCart}
+                className="w-full bg-indigo-600 text-white font-semibold px-4 py-2 rounded-full hover:bg-indigo-700 transition duration-300"
+              >
+                Add to Cart
+              </button>
+            </div>
+          ))}
       </div>
     </div>
   );

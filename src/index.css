@@ -1,9 +1,10 @@
 body {
-  background-color: #07060d;
   color: #ede8f5;
   font-family: 'Jost', sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+    margin: 0;
+  padding: 0;
 }
 
 ::-webkit-scrollbar       { width: 5px; }

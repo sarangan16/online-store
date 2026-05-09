@@ -1,12 +1,12 @@
-import "./App.css";
-import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import Hero from "./components/Hero";
-import Contact from "./components/Contact";
 import { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Footer from "./components/Footer";
 import Product from "./components/Product";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Home from "./components/Home";
+import Contact from "./components/Contact";
+import "./App.css";
 
 function App() {
   const location = useLocation();
@@ -30,14 +30,21 @@ function App() {
 
   return (
     <div className="App">
-      {location.pathname === "/" && <Hero />}
       <Navbar
         cartItems={cartItems}
         itemCount={itemCount}
         removeFromCart={removeFromCart}
       />
       <Routes>
-        <Route path="/" element={<Home addToCart={addToCart} />} />
+        <Route
+          path="/"
+          element={
+            <>
+              <Hero />
+              <Home addToCart={addToCart} />
+            </>
+          }
+        />
 
         <Route path="/contact" element={<Contact />} />
         <Route

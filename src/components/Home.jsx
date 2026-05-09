@@ -69,17 +69,8 @@ const Home = ({ addToCart }) => {
     }
   }, [products]);
 
-  const handleCategoryChange = (e) => {
-    const value = e.target.value;
-    if (value === "all") {
-      loadProducts("https://fakestoreapi.com/products/");
-    } else {
-      loadProducts(
-        `https://fakestoreapi.com/products/category/${encodeURIComponent(
-          value,
-        )}`,
-      );
-    }
+  const handleCategoryChange = (category) => {
+    loadProducts(category);
   };
 
   const handleAddToCart = (product) => {
@@ -88,29 +79,55 @@ const Home = ({ addToCart }) => {
   };
 
   return (
-    <div id="home" className="scroll-mt-24 container mx-auto px-4 py-16">
+    <div
+      id="home"
+      style={{ maxWidth: "1280px", margin: "0 auto", padding: "80px 20px" }}
+    >
       {toastMessage && (
         <Toast message={toastMessage} onClose={() => setToastMessage("")} />
       )}
 
       {/* search + filter */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-12">
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          gap: "16px",
+          marginBottom: "40px",
+          flexWrap: "wrap",
+        }}
+      >
+        {" "}
         <input
           type="text"
           placeholder="Search for products..."
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full md:flex-1 px-6 py-3 rounded-full border border-gray-200 bg-white/80 backdrop-blur-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          className="input-luxury"
+          style={{ maxWidth: "300px" }}
         />
-        <select
-          onChange={handleCategoryChange}
-          className="w-full md:w-48 px-4 py-3 rounded-full border border-gray-200 bg-white/80 backdrop-blur-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-        >
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat.toUpperCase()}
-            </option>
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          {MAKEUP_CATEGORIES.map((cat) => (
+            <button
+              key={cat.value}
+              onClick={() => handleCategoryChange(cat.value)}
+              style={{
+                padding: "8px 20px",
+                fontSize: "11px",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                fontFamily: "Jost, sans-serif",
+                border: "1px solid #2e2050",
+                background: "transparent",
+                color: "#7a6a96",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+              }}
+            >
+              {cat.label}
+            </button>
           ))}
-        </select>
+        </div>
       </div>
 
       {loading && (
@@ -120,7 +137,14 @@ const Home = ({ addToCart }) => {
       )}
 
       {/* product grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: "20px",
+        }}
+      >
+        {" "}
         {products
           .filter(
             (p) =>
@@ -131,19 +155,27 @@ const Home = ({ addToCart }) => {
             <div
               key={product.id}
               ref={(el) => (cardsRef.current[i] = el)}
-              className="flex flex-col justify-between bg-white rounded-3xl shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-500 hover:-translate-y-1 p-6"
+              className="flex flex-col justify-between card-hover"
+              style={{ background: "#0f0d1a", border: "1px solid #2e2050" }}
             >
-              <div>
+              <div style={{ padding: "16px" }}>
                 <Link to={`/product/${product.id}`} className="block mb-5">
-                  <div className="w-full h-72 flex items-center justify-center rounded-2xl bg-gray-50 overflow-hidden">
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "220px",
+                      overflow: "hidden",
+                      background: "#1a1428",
+                    }}
+                  >
                     <img
                       src={product.image_link}
                       alt={product.name}
-                      className="object-contain max-h-full transition-transform duration-500 hover:scale-105"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src =
-                          "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&q=80";
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        transition: "transform 0.5s ease",
                       }}
                     />
                   </div>
@@ -153,12 +185,15 @@ const Home = ({ addToCart }) => {
                   to={`/product/${product.id}`}
                   className="block text-center mb-3"
                 >
-                  <h2 className="text-base font-medium text-gray-800 hover:text-indigo-600 transition-colors leading-snug">
+                  <h2 className="font-body text-sm text-sarans-text hover:text-gold transition-colors leading-snug">
                     {product.name}
                   </h2>
                 </Link>
 
-                <p className="text-lg font-semibold text-gray-900 mb-4 text-center">
+                <p
+                  className="font-body text-sm mb-4"
+                  style={{ color: "#c9a84c" }}
+                >
                   ${parseFloat(product.price || 12.99).toFixed(2)}
                 </p>
 
@@ -179,12 +214,12 @@ const Home = ({ addToCart }) => {
               </div>
 
               {/* consistent button height */}
-              <div className="mt-auto pt-4">
+              <div style={{ padding: "0 16px 16px" }}>
                 <button
                   onClick={() => handleAddToCart(product)}
-                  className="w-full h-11 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white font-semibold rounded-full hover:from-indigo-700 hover:to-indigo-600 transition-all duration-300 shadow-md hover:shadow-lg"
+                  className="btn-gold w-full"
                 >
-                  Add to Cart
+                  Add to Bag
                 </button>
               </div>
             </div>

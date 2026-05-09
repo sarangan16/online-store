@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import { FiArrowLeft, FiShoppingBag, FiCheck } from "react-icons/fi";
 
 const Product = ({ addToCart }) => {
   const [product, setProduct] = useState(null);
@@ -8,11 +9,11 @@ const Product = ({ addToCart }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/${id}`)
+    fetch(`https://makeup-api.herokuapp.com/api/v1/products/${id}.json`)
       .then((res) => res.json())
       .then((data) => setProduct(data))
       .catch(() => {
-        alert("Failed to load product details");
+        console.error("Failed to load product");
       });
   }, [id]);
 
@@ -63,7 +64,7 @@ const Product = ({ addToCart }) => {
                   <FaStar key={i} className="w-5 h-5 text-yellow-400" />
                 ) : (
                   <FaRegStar key={i} className="w-5 h-5 text-yellow-400" />
-                )
+                ),
               )}
               <span className="text-gray-500">
                 ({product.rating.count} reviews)
@@ -102,7 +103,7 @@ const Product = ({ addToCart }) => {
                     <FaStar key={i} className="w-4 h-4 text-yellow-400" />
                   ) : (
                     <FaRegStar key={i} className="w-4 h-4 text-yellow-400" />
-                  )
+                  ),
                 )}
               </div>
               <p className="text-gray-700">{review.text}</p>

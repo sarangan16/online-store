@@ -195,7 +195,7 @@ const Home = ({ addToCart }) => {
               className="flex flex-col justify-between card-hover"
               style={{ background: "#0f0d1a", border: "1px solid #2e2050" }}
             >
-              <div style={{ padding: "16px" }}>
+              <div style={{ padding: "16px 16px 8px" }}>
                 <Link to={`/product/${product.id}`} className="block mb-5">
                   <div
                     style={{
@@ -206,7 +206,11 @@ const Home = ({ addToCart }) => {
                     }}
                   >
                     <img
-                      src={product.image_link}
+                      src={
+                        product.image_link
+                          ? product.image_link.replace("http://", "https://")
+                          : "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&q=80"
+                      }
                       alt={product.name}
                       style={{
                         width: "100%",
@@ -218,6 +222,18 @@ const Home = ({ addToCart }) => {
                   </div>
                 </Link>
 
+                <p
+                  style={{
+                    color: "#c9a84c",
+                    fontSize: "10px",
+                    letterSpacing: "0.3em",
+                    textTransform: "uppercase",
+                    fontFamily: "Jost, sans-serif",
+                    marginBottom: "6px",
+                  }}
+                >
+                  {product.brand || "SARANS"}
+                </p>
                 <Link
                   to={`/product/${product.id}`}
                   style={{

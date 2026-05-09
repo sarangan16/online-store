@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 import Product from "./components/Product";
 import Navbar from "./components/Navbar";
@@ -9,18 +9,12 @@ import Contact from "./components/Contact";
 import "./App.css";
 
 function App() {
-  const location = useLocation();
-
   const [cartItems, setCartItems] = useState([]);
   const [itemCount, setItemCount] = useState(0);
 
-  function addToCart(productId) {
-    fetch(`https://fakestoreapi.com/products/${productId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setCartItems((prev) => [...prev, data]);
-        setItemCount((prev) => prev + 1);
-      });
+  function addToCart(product) {
+    setCartItems((prev) => [...prev, product]);
+    setItemCount((prev) => prev + 1);
   }
 
   function removeFromCart(id) {

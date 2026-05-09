@@ -7,7 +7,6 @@ import { loadStripe } from "@stripe/stripe-js";
 const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const drawerRef = useRef(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
@@ -20,155 +19,297 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
     const stripe = await loadStripe(
       "pk_test_51PYN8aAf9XbbjxqDzq7dZzdkJjMrjVIgSwGxApNC4V7To2C2EfVKch6Sj6kYbXzu9eOCsmPNt95ojrem0MYeEkyA00JAqD14BM",
     );
-
     const body = { items: cartItems };
     const response = await fetch("/create-checkout-session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
-
     const session = await response.json();
     const result = await stripe.redirectToCheckout({ sessionId: session.id });
-
-    if (result.error) {
-      alert(result.error.message);
-    }
+    if (result.error) alert(result.error.message);
   };
 
+  const cartTotal = cartItems
+    .reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0)
+    .toFixed(2);
+
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/70 shadow-sm border-b border-gray-200">
-      <div className="container mx-auto px-6 flex items-center justify-between h-16">
-        <div className="text-2xl font-bold tracking-tight">
-          <Link to="/" className="flex items-center space-x-1">
-            <span className="text-black">Ka</span>
-            <span className="text-red-600">uf.</span>
-            <span className="text-yellow-500">DE</span>
-          </Link>
-        </div>
-
-        <div className="hidden lg:flex items-center space-x-8 text-gray-800 font-medium">
-          <Link to="/" className="relative group">
-            Store
-            <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-red-600 transition-all group-hover:w-full"></span>
-          </Link>
-          <Link to="/contact" className="relative group">
-            Kontakt
-            <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-red-600 transition-all group-hover:w-full"></span>
-          </Link>
-
-          <div className="relative">
-            <button
-              onClick={() => setIsCartOpen(!isCartOpen)}
-              className="relative"
-            >
-              <FaShoppingCart className="text-xl hover:text-red-600 transition-colors" />
-              {itemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {itemCount}
-                </span>
-              )}
-            </button>
-
-            {isCartOpen && (
-              <div className="absolute right-0 mt-3 w-80 bg-white border border-gray-200 rounded-xl shadow-xl overflow-hidden">
-                <div className="p-4 border-b">
-                  <h3 className="text-lg font-semibold">Cart Items</h3>
-                </div>
-                <ul className="max-h-60 overflow-y-auto divide-y divide-gray-100">
-                  {cartItems.length === 0 && (
-                    <li className="p-4 text-gray-500 text-sm">
-                      Your cart is empty
-                    </li>
-                  )}
-                  {cartItems.map((item) => (
-                    <li
-                      key={item.id}
-                      className="p-3 flex items-center justify-between space-x-3 hover:bg-gray-50 transition"
-                    >
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-10 h-10 object-contain flex-shrink-0"
-                      />
-                      <span className="text-sm truncate flex-1">
-                        {item.title}
-                      </span>
-                      <span className="text-sm font-semibold whitespace-nowrap">
-                        ${item.price}
-                      </span>
-                      <button
-                        onClick={() => removeFromCart(item.id)}
-                        className="text-red-500 hover:text-red-700 flex-shrink-0"
-                      >
-                        <MdDeleteForever className="text-lg" />
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-                {cartItems.length > 0 && (
-                  <div className="p-4 border-t">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="font-semibold">Total:</span>
-                      <span className="font-bold text-gray-900">
-                        $
-                        {cartItems
-                          .reduce((total, item) => total + item.price, 0)
-                          .toFixed(2)}
-                      </span>
-                    </div>
-                    <button
-                      onClick={makePayment}
-                      className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition"
-                    >
-                      Checkout
-                    </button>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-
-        <button
-          className="lg:hidden flex flex-col justify-center items-center space-y-1"
-          onClick={() => setIsOpen(!isOpen)}
+    <>
+      {/* main navbar */}
+      <nav
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          transition: "all 0.5s ease",
+          backgroundColor: scrolled ? "rgba(7,6,13,0.95)" : "transparent",
+          backdropFilter: scrolled ? "blur(12px)" : "none",
+          borderBottom: scrolled ? "1px solid #2e2050" : "none",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            height: "80px",
+            maxWidth: "1280px",
+            margin: "0 auto",
+            padding: "0 40px",
+          }}
         >
-          <span
-            className={`block h-0.5 w-6 bg-gray-800 transform transition ${
-              isOpen ? "rotate-45 translate-y-1.5" : ""
-            }`}
-          />
-          <span
-            className={`block h-0.5 w-6 bg-gray-800 transition ${
-              isOpen ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`block h-0.5 w-6 bg-gray-800 transform transition ${
-              isOpen ? "-rotate-45 -translate-y-1.5" : ""
-            }`}
-          />
-        </button>
-      </div>
-
-      {isOpen && (
-        <div className="lg:hidden px-6 pb-4 space-y-2 bg-white shadow-inner">
+          {/* logo */}
           <Link
             to="/"
-            className="block text-gray-800 py-2 hover:text-red-600 transition"
+            className="gold-shimmer font-display text-2xl tracking-widest uppercase"
           >
-            Store
+            SARANS
           </Link>
-          <Link
-            to="/contact"
-            className="block text-gray-800 py-2 hover:text-red-600 transition"
+
+          {/* nav links */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: "40px",
+            }}
           >
-            Kontakt
-          </Link>
+            <Link
+              to="/"
+              className="font-body text-xs tracking-widest uppercase text-sarans-muted hover:text-sarans-text transition-colors duration-300 relative group"
+            >
+              Store
+              <span className="absolute left-0 -bottom-1 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+            </Link>
+            <Link
+              to="/contact"
+              className="font-body text-xs tracking-widest uppercase text-sarans-muted hover:text-sarans-text transition-colors duration-300 relative group"
+            >
+              Kontakt
+              <span className="absolute left-0 -bottom-1 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+            </Link>
+
+            {/* cart button */}
+            <div style={{ position: "relative" }}>
+              <button
+                onClick={() => setIsCartOpen(!isCartOpen)}
+                style={{
+                  position: "relative",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <FaShoppingCart
+                  style={{ fontSize: "20px", color: "#7a6a96" }}
+                />
+                {itemCount > 0 && (
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: "-8px",
+                      right: "-8px",
+                      background: "#c9a84c",
+                      color: "#07060d",
+                      fontSize: "10px",
+                      fontWeight: "bold",
+                      borderRadius: "50%",
+                      width: "16px",
+                      height: "16px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {itemCount}
+                  </span>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
+      </nav>
+
+      {/* cart drawer overlay */}
+      {isCartOpen && (
+        <div
+          onClick={() => setIsCartOpen(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.7)",
+            zIndex: 60,
+          }}
+        />
       )}
-    </nav>
+
+      {/* cart drawer */}
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          right: 0,
+          height: "100%",
+          width: "360px",
+          backgroundColor: "#0f0d1a",
+          borderLeft: "1px solid #2e2050",
+          zIndex: 70,
+          display: "flex",
+          flexDirection: "column",
+          transform: isCartOpen ? "translateX(0)" : "translateX(100%)",
+          transition: "transform 0.4s ease",
+        }}
+      >
+        {/* drawer header */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "24px 28px",
+            borderBottom: "1px solid #2e2050",
+          }}
+        >
+          <div>
+            <h2 className="font-display text-2xl text-sarans-text">Your Bag</h2>
+            <p className="font-body text-xs tracking-widest text-sarans-muted mt-1">
+              {itemCount} {itemCount === 1 ? "item" : "items"}
+            </p>
+          </div>
+          <button
+            onClick={() => setIsCartOpen(false)}
+            style={{
+              background: "none",
+              border: "none",
+              color: "#7a6a96",
+              cursor: "pointer",
+              fontSize: "20px",
+            }}
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* cart items */}
+        <div style={{ flex: 1, overflowY: "auto", padding: "16px 28px" }}>
+          {cartItems.length === 0 ? (
+            <div style={{ textAlign: "center", paddingTop: "60px" }}>
+              <FaShoppingCart
+                style={{
+                  fontSize: "48px",
+                  color: "#2e2050",
+                  margin: "0 auto 16px",
+                }}
+              />
+              <p className="text-sarans-muted font-body text-sm">
+                Your bag is empty
+              </p>
+            </div>
+          ) : (
+            cartItems.map((item, i) => (
+              <div
+                key={`${item.id}-${i}`}
+                style={{
+                  display: "flex",
+                  gap: "16px",
+                  padding: "16px",
+                  marginBottom: "12px",
+                  background: "#1a1428",
+                  border: "1px solid #2e2050",
+                }}
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  style={{
+                    width: "60px",
+                    height: "60px",
+                    objectFit: "contain",
+                    background: "#07060d",
+                  }}
+                  onError={(e) => {
+                    e.target.src =
+                      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=200&q=80";
+                  }}
+                />
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p
+                    className="font-body text-xs text-sarans-text"
+                    style={{
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {item.title}
+                  </p>
+                  <p
+                    className="font-body text-sm"
+                    style={{ color: "#c9a84c", marginTop: "4px" }}
+                  >
+                    ${parseFloat(item.price).toFixed(2)}
+                  </p>
+                </div>
+                <button
+                  onClick={() => removeFromCart(item.id)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    color: "#7a6a96",
+                    cursor: "pointer",
+                  }}
+                >
+                  <MdDeleteForever size={18} />
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* drawer footer */}
+        {cartItems.length > 0 && (
+          <div style={{ padding: "24px 28px", borderTop: "1px solid #2e2050" }}>
+            <div className="gold-divider" style={{ marginBottom: "16px" }} />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "20px",
+              }}
+            >
+              <span className="font-body text-xs tracking-widest uppercase text-sarans-muted">
+                Total
+              </span>
+              <span className="font-display text-2xl gold-text">
+                ${cartTotal}
+              </span>
+            </div>
+            <button
+              onClick={makePayment}
+              className="btn-gold"
+              style={{ width: "100%" }}
+            >
+              Checkout with Stripe
+            </button>
+            <p
+              className="font-body text-sarans-muted"
+              style={{
+                fontSize: "10px",
+                textAlign: "center",
+                marginTop: "12px",
+              }}
+            >
+              🔒 Secured by Stripe
+            </p>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

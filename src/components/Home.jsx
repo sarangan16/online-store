@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import { FiShoppingBag } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -60,7 +60,7 @@ const Home = ({ addToCart }) => {
             trigger: cardsRef.current[0],
             start: "top 90%",
           },
-        }
+        },
       );
     }
   }, [products]);
@@ -72,8 +72,8 @@ const Home = ({ addToCart }) => {
     } else {
       loadProducts(
         `https://fakestoreapi.com/products/category/${encodeURIComponent(
-          value
-        )}`
+          value,
+        )}`,
       );
     }
   };
@@ -161,7 +161,7 @@ const Home = ({ addToCart }) => {
                         <FaStar key={i} className="w-4 h-4" />
                       ) : (
                         <FaRegStar key={i} className="w-4 h-4" />
-                      )
+                      ),
                     )}
                   </div>
                   <span className="text-sm text-gray-500">

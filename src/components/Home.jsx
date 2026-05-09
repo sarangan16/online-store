@@ -137,13 +137,13 @@ const Home = ({ addToCart }) => {
                 <Link to={`/product/${product.id}`} className="block mb-5">
                   <div className="w-full h-72 flex items-center justify-center rounded-2xl bg-gray-50 overflow-hidden">
                     <img
-                      src={product.image}
-                      alt={product.title}
+                      src={product.image_link}
+                      alt={product.name}
                       className="object-contain max-h-full transition-transform duration-500 hover:scale-105"
                       onError={(e) => {
                         e.target.onerror = null;
                         e.target.src =
-                          "https://dummyimage.com/150x150/cccccc/000000&text=No+Image";
+                          "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&q=80";
                       }}
                     />
                   </div>
@@ -154,18 +154,18 @@ const Home = ({ addToCart }) => {
                   className="block text-center mb-3"
                 >
                   <h2 className="text-base font-medium text-gray-800 hover:text-indigo-600 transition-colors leading-snug">
-                    {product.title}
+                    {product.name}
                   </h2>
                 </Link>
 
                 <p className="text-lg font-semibold text-gray-900 mb-4 text-center">
-                  ${product.price}
+                  ${parseFloat(product.price || 12.99).toFixed(2)}
                 </p>
 
                 <div className="flex justify-center items-center gap-2 mb-5">
                   <div className="flex text-yellow-400">
                     {Array.from({ length: 5 }, (_, i) =>
-                      i < Math.round(product.rating.rate) ? (
+                      i < Math.round(parseFloat(product.rating) || 0) ? (
                         <FaStar key={i} className="w-4 h-4" />
                       ) : (
                         <FaRegStar key={i} className="w-4 h-4" />
@@ -173,7 +173,7 @@ const Home = ({ addToCart }) => {
                     )}
                   </div>
                   <span className="text-sm text-gray-500">
-                    ({product.rating.count})
+                    ({product.rating || "N/A"})
                   </span>
                 </div>
               </div>

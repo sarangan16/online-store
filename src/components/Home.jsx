@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useRef } from "react";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { FiShoppingBag } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -16,12 +17,27 @@ const Home = ({ addToCart }) => {
 
   const cardsRef = useRef([]);
 
-  const loadProducts = async (url) => {
+  const MAKEUP_CATEGORIES = [
+    { label: "All", value: "" },
+    { label: "Lipstick", value: "lipstick" },
+    { label: "Foundation", value: "foundation" },
+    { label: "Eyeshadow", value: "eyeshadow" },
+    { label: "Blush", value: "blush" },
+    { label: "Mascara", value: "mascara" },
+    { label: "Bronzer", value: "bronzer" },
+    { label: "Nail Polish", value: "nail_polish" },
+  ];
+
+  const loadProducts = async (category) => {
     setLoading(true);
     try {
+      let url = "https://makeup-api.herokuapp.com/api/v1/products.json";
+      if (category) url += `?product_type=${category}`;
       const res = await fetch(url);
       const data = await res.json();
-      setProducts(data);
+      // only show products that have images
+      const clean = data.filter((p) => p.image_link).slice(0, 40);
+      setProducts(clean);
     } catch (err) {
       console.error("Failed to load products:", err);
     } finally {
@@ -29,20 +45,8 @@ const Home = ({ addToCart }) => {
     }
   };
 
-  const loadCategories = async () => {
-    try {
-      const res = await fetch("https://fakestoreapi.com/products/categories");
-      const data = await res.json();
-      data.unshift("all");
-      setCategories(data);
-    } catch (err) {
-      console.error("Failed to load categories:", err);
-    }
-  };
-
   useEffect(() => {
-    loadProducts("https://fakestoreapi.com/products");
-    loadCategories();
+    loadProducts("");
   }, []);
 
   useEffect(() => {
@@ -118,7 +122,11 @@ const Home = ({ addToCart }) => {
       {/* product grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
         {products
-          .filter((p) => p.title.toLowerCase().includes(search.toLowerCase()))
+          .filter(
+            (p) =>
+              p.name && p.name.toLowerCase().includes(search.toLowerCase()),
+          )
+
           .map((product, i) => (
             <div
               key={product.id}

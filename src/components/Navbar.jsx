@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
@@ -10,7 +10,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
 
   const makePayment = async () => {
     const stripe = await loadStripe(
-      "pk_test_51PYN8aAf9XbbjxqDzq7dZzdkJjMrjVIgSwGxApNC4V7To2C2EfVKch6Sj6kYbXzu9eOCsmPNt95ojrem0MYeEkyA00JAqD14BM"
+      "pk_test_51PYN8aAf9XbbjxqDzq7dZzdkJjMrjVIgSwGxApNC4V7To2C2EfVKch6Sj6kYbXzu9eOCsmPNt95ojrem0MYeEkyA00JAqD14BM",
     );
 
     const body = { items: cartItems };

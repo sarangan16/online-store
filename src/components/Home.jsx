@@ -83,9 +83,46 @@ const Home = ({ addToCart }) => {
       id="home"
       style={{ maxWidth: "1280px", margin: "0 auto", padding: "80px 20px" }}
     >
-      {toastMessage && (
-        <Toast message={toastMessage} onClose={() => setToastMessage("")} />
-      )}
+      {/* section heading */}
+      <div style={{ textAlign: "center", marginBottom: "48px" }}>
+        <p
+          style={{
+            color: "#c9a84c",
+            fontSize: "11px",
+            letterSpacing: "0.5em",
+            textTransform: "uppercase",
+            fontFamily: "Jost, sans-serif",
+            marginBottom: "16px",
+          }}
+        >
+          — The Collection —
+        </p>
+        <h2
+          style={{
+            fontFamily: "Cormorant Garamond, serif",
+            fontSize: "52px",
+            color: "#ede8f5",
+            lineHeight: 1.1,
+            marginBottom: "16px",
+          }}
+        >
+          Discover{" "}
+          <span
+            style={{
+              fontStyle: "italic",
+              background: "linear-gradient(135deg, #9a7a30, #c9a84c, #f5e6a3)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            Beauty
+          </span>
+        </h2>
+        <div
+          className="gold-divider"
+          style={{ width: "120px", margin: "0 auto" }}
+        />
+      </div>
 
       {/* search + filter */}
       <div

@@ -183,9 +183,20 @@ const Home = ({ addToCart }) => {
 
                 <Link
                   to={`/product/${product.id}`}
-                  className="block text-center mb-3"
+                  style={{
+                    display: "block",
+                    marginBottom: "8px",
+                    textDecoration: "none",
+                  }}
                 >
-                  <h2 className="font-body text-sm text-sarans-text hover:text-gold transition-colors leading-snug">
+                  <h2
+                    style={{
+                      fontFamily: "Jost, sans-serif",
+                      fontSize: "13px",
+                      color: "#ede8f5",
+                      lineHeight: 1.4,
+                    }}
+                  >
                     {product.name}
                   </h2>
                 </Link>

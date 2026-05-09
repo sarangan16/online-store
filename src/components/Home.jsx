@@ -82,9 +82,9 @@ const Home = ({ addToCart }) => {
     }
   };
 
-  const handleAddToCart = (e) => {
-    addToCart(e.target.id);
-    setToastMessage("Item added to cart!");
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setToastMessage(`${product.name.slice(0, 20)}... added to bag!`);
   };
 
   return (
@@ -181,8 +181,7 @@ const Home = ({ addToCart }) => {
               {/* consistent button height */}
               <div className="mt-auto pt-4">
                 <button
-                  id={product.id}
-                  onClick={handleAddToCart}
+                  onClick={() => handleAddToCart(product)}
                   className="w-full h-11 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white font-semibold rounded-full hover:from-indigo-700 hover:to-indigo-600 transition-all duration-300 shadow-md hover:shadow-lg"
                 >
                   Add to Cart

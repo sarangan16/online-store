@@ -94,7 +94,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
               className="font-body text-xs tracking-widest uppercase transition-colors duration-300 relative group"
               style={{ color: "#7a6a96", textDecoration: "none" }}
             >
-              Contakt
+              Contact
               <span className="absolute left-0 -bottom-1 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
             </Link>
 

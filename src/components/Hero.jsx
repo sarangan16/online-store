@@ -186,9 +186,9 @@ const Hero = () => {
 
             {/* buttons */}
             <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-              <Link to="/" className="btn-gold">
+              <a href="#home" className="btn-gold">
                 Shop Collection
-              </Link>
+              </a>
               <Link to="/contact" className="btn-ghost">
                 Our Story
               </Link>

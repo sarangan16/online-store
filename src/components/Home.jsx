@@ -227,8 +227,8 @@ const Home = ({ addToCart }) => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: "20px",
+          gridTemplateColumns: "repeat(12, 1fr)",
+          gap: "16px",
         }}
       >
         {" "}
@@ -242,77 +242,125 @@ const Home = ({ addToCart }) => {
             <div
               key={product.id}
               ref={(el) => (cardsRef.current[i] = el)}
-              className="flex flex-col justify-between card-hover"
-              style={{ background: "#0f0d1a", border: "1px solid #2e2050" }}
+              className="card-hover"
+              style={{
+                background: "#0f0d1a",
+                border: "1px solid #2e2050",
+                gridColumn:
+                  i === 0
+                    ? "span 5"
+                    : i === 1
+                      ? "span 7"
+                      : i === 2
+                        ? "span 4"
+                        : i === 3
+                          ? "span 4"
+                          : i === 4
+                            ? "span 4"
+                            : i === 5
+                              ? "span 7"
+                              : i === 6
+                                ? "span 5"
+                                : "span 3",
+                position: "relative",
+                overflow: "hidden",
+              }}
             >
-              <div style={{ padding: "16px 16px 8px" }}>
-                <Link to={`/product/${product.id}`} className="block mb-5">
-                  <div
+              {/* full image with overlay text - editorial style */}
+              <Link
+                to={`/product/${product.id}`}
+                style={{ display: "block", textDecoration: "none" }}
+              >
+                <div
+                  style={{
+                    width: "100%",
+                    height:
+                      i === 0 || i === 1 || i === 5 || i === 6
+                        ? "420px"
+                        : "280px",
+                    overflow: "hidden",
+                    position: "relative",
+                    background: "#1a1428",
+                  }}
+                >
+                  <img
+                    src={product.thumbnail}
+                    alt={product.title}
                     style={{
                       width: "100%",
-                      height: "220px",
-                      overflow: "hidden",
-                      background: "#1a1428",
+                      height: "100%",
+                      objectFit: "cover",
+                      transition: "transform 0.7s ease",
                     }}
-                  >
-                    <img
-                      src={product.thumbnail}
-                      alt={product.title}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        transition: "transform 0.5s ease",
-                      }}
-                    />
-                  </div>
-                </Link>
-
-                <p
-                  style={{
-                    color: "#c9a84c",
-                    fontSize: "10px",
-                    letterSpacing: "0.3em",
-                    textTransform: "uppercase",
-                    fontFamily: "Jost, sans-serif",
-                    marginBottom: "6px",
-                  }}
-                >
-                  {product.brand || product.category}
-                </p>
-                <Link
-                  to={`/product/${product.id}`}
-                  style={{
-                    display: "block",
-                    marginBottom: "8px",
-                    textDecoration: "none",
-                  }}
-                >
-                  <h2
+                    onMouseEnter={(e) =>
+                      (e.target.style.transform = "scale(1.06)")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.target.style.transform = "scale(1)")
+                    }
+                  />
+                  {/* gradient overlay */}
+                  <div
                     style={{
-                      fontFamily: "Jost, sans-serif",
-                      fontSize: "13px",
-                      color: "#ede8f5",
-                      lineHeight: 1.4,
+                      position: "absolute",
+                      inset: 0,
+                      background:
+                        "linear-gradient(to top, rgba(7,6,13,0.95) 0%, rgba(7,6,13,0.3) 50%, transparent 100%)",
+                    }}
+                  />
+                  {/* text on image */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      padding: "20px",
                     }}
                   >
-                    {product.title}{" "}
-                  </h2>
-                </Link>
+                    <p
+                      style={{
+                        color: "#c9a84c",
+                        fontSize: "9px",
+                        letterSpacing: "0.4em",
+                        textTransform: "uppercase",
+                        fontFamily: "Jost, sans-serif",
+                        marginBottom: "6px",
+                      }}
+                    >
+                      {product.brand || product.category}
+                    </p>
+                    <h2
+                      style={{
+                        fontFamily: "Cormorant Garamond, serif",
+                        fontSize: i === 0 || i === 1 ? "24px" : "17px",
+                        color: "#ede8f5",
+                        lineHeight: 1.2,
+                        marginBottom: "6px",
+                      }}
+                    >
+                      {product.title}
+                    </h2>
+                    <p
+                      style={{
+                        color: "#c9a84c",
+                        fontFamily: "Jost, sans-serif",
+                        fontSize: "13px",
+                        fontWeight: 500,
+                      }}
+                    >
+                      ${parseFloat(product.price || 12.99).toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+              </Link>
 
-                <p
-                  className="font-body text-sm mb-4"
-                  style={{ color: "#c9a84c" }}
-                >
-                  ${parseFloat(product.price || 12.99).toFixed(2)}
-                </p>
-              </div>
-
-              {/* add to bag btn */}
-              <div style={{ padding: "0 16px 16px" }}>
+              {/* add to bag button */}
+              <div style={{ padding: "12px 16px" }}>
                 <button
                   onClick={() => handleAddToCart(product)}
-                  className="btn-gold w-full"
+                  className="btn-gold"
+                  style={{ width: "100%", padding: "10px", fontSize: "10px" }}
                 >
                   Add to Bag
                 </button>

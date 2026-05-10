@@ -138,8 +138,8 @@ const Contact = () => {
 
             {/* contact details - looping so i dont repeat myself */}
             {[
-              { label: "Email", value: "hello@sarans.com" },
-              { label: "Instagram", value: "@sarans_beauty" },
+              { label: "Email", value: "info.sarans@gmail.com" },
+              { label: "Instagram", value: "@sarans.lk" },
               { label: "Hours", value: "Mon–Fri, 9am–6pm" },
             ].map((item) => (
               <div

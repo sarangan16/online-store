@@ -111,7 +111,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
                 <FaShoppingCart
                   style={{ fontSize: "20px", color: "#7a6a96" }}
                 />
-                {itemCount > 0 && (
+                {cartItems.length > 0 && (
                   <span
                     style={{
                       position: "absolute",
@@ -129,7 +129,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
                       justifyContent: "center",
                     }}
                   >
-                    {itemCount}
+                    {cartItems.length}{" "}
                   </span>
                 )}
               </button>
@@ -181,7 +181,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
           <div>
             <h2 className="font-display text-2xl text-sarans-text">Your Bag</h2>
             <p className="font-body text-xs tracking-widest text-sarans-muted mt-1">
-              {itemCount} {itemCount === 1 ? "item" : "items"}
+              {cartItems.length} {cartItems.length === 1 ? "item" : "items"}
             </p>
           </div>
           <button

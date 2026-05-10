@@ -1,12 +1,58 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FaStar, FaRegStar } from "react-icons/fa";
 import { FiShoppingBag } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import Toast from "./Toast";
 
 gsap.registerPlugin(ScrollTrigger);
+// images for broken api product images
+const CATEGORY_IMAGES = {
+  lipstick: [
+    "https://images.unsplash.com/photo-1631214524020-3c69888f8329?w=400&q=80",
+    "https://images.unsplash.com/photo-1599733589046-833b4a2f5a50?w=400&q=80",
+    "https://images.unsplash.com/photo-1586495777744-4e6232bf8eb7?w=400&q=80",
+    "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&q=80",
+  ],
+  foundation: [
+    "https://images.unsplash.com/photo-1617897903246-719242758050?w=400&q=80",
+    "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80",
+    "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&q=80",
+  ],
+  eyeshadow: [
+    "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&q=80",
+    "https://images.unsplash.com/photo-1583241475880-083f84372725?w=400&q=80",
+    "https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&q=80",
+  ],
+  blush: [
+    "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&q=80",
+    "https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=400&q=80",
+  ],
+  mascara: [
+    "https://images.unsplash.com/photo-1631214499177-b1f67267a71e?w=400&q=80",
+    "https://images.unsplash.com/photo-1522338140262-f46f5913618a?w=400&q=80",
+  ],
+  bronzer: [
+    "https://images.unsplash.com/photo-1599733594230-6b823276d4b6?w=400&q=80",
+    "https://images.unsplash.com/photo-1560461396-ec0ef7bb5b0f?w=400&q=80",
+  ],
+  nail_polish: [
+    "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400&q=80",
+    "https://images.unsplash.com/photo-1604654894611-6973b7783598?w=400&q=80",
+  ],
+  default: [
+    "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&q=80",
+    "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80",
+    "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&q=80",
+    "https://images.unsplash.com/photo-1560461396-ec0ef7bb5b0f?w=400&q=80",
+  ],
+};
+
+// pick a consistent image for each product based on its id
+function getProductImage(product) {
+  const category = product.product_type || "default";
+  const images = CATEGORY_IMAGES[category] || CATEGORY_IMAGES.default;
+  return images[product.id % images.length];
+}
 
 const Home = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
@@ -19,25 +65,25 @@ const Home = ({ addToCart }) => {
 
   const MAKEUP_CATEGORIES = [
     { label: "All", value: "" },
-    { label: "Lipstick", value: "lipstick" },
-    { label: "Foundation", value: "foundation" },
-    { label: "Eyeshadow", value: "eyeshadow" },
-    { label: "Blush", value: "blush" },
-    { label: "Mascara", value: "mascara" },
-    { label: "Bronzer", value: "bronzer" },
-    { label: "Nail Polish", value: "nail_polish" },
+    { label: "Beauty", value: "beauty" },
+    { label: "Skin Care", value: "skin-care" },
+    { label: "Fragrances", value: "fragrances" },
+    { label: "Jewellery", value: "womens-jewellery" },
+    { label: "Sunglasses", value: "sunglasses" },
+    { label: "Bags", value: "womens-bags" },
   ];
 
   const loadProducts = async (category) => {
     setLoading(true);
     try {
-      let url = "https://makeup-api.herokuapp.com/api/v1/products.json";
-      if (category) url += `?product_type=${category}`;
+      // dummyjson is way faster and more reliable than makeup api
+      let url = "https://dummyjson.com/products?limit=40";
+      if (category && category !== "") {
+        url = `https://dummyjson.com/products/category/${category}?limit=40`;
+      }
       const res = await fetch(url);
       const data = await res.json();
-      // only show products that have images
-      const clean = data.filter((p) => p.image_link).slice(0, 40);
-      setProducts(clean);
+      setProducts(data.products);
     } catch (err) {
       console.error("Failed to load products:", err);
     } finally {
@@ -75,7 +121,6 @@ const Home = ({ addToCart }) => {
 
   const handleAddToCart = (product) => {
     addToCart(product);
-    setToastMessage(`${product.name.slice(0, 20)}... added to bag!`);
   };
 
   return (
@@ -129,7 +174,7 @@ const Home = ({ addToCart }) => {
         />
       </div>
 
-      {/* search + filter */}
+      {/* search + filter products */}
       <div
         style={{
           display: "flex",
@@ -178,7 +223,7 @@ const Home = ({ addToCart }) => {
         </div>
       )}
 
-      {/* product grid */}
+      {/* product grid listing */}
       <div
         style={{
           display: "grid",
@@ -190,7 +235,7 @@ const Home = ({ addToCart }) => {
         {products
           .filter(
             (p) =>
-              p.name && p.name.toLowerCase().includes(search.toLowerCase()),
+              p.title && p.title.toLowerCase().includes(search.toLowerCase()),
           )
 
           .map((product, i) => (
@@ -211,12 +256,8 @@ const Home = ({ addToCart }) => {
                     }}
                   >
                     <img
-                      src={
-                        product.image_link
-                          ? product.image_link.replace("http://", "https://")
-                          : "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&q=80"
-                      }
-                      alt={product.name}
+                      src={product.thumbnail}
+                      alt={product.title}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -237,7 +278,7 @@ const Home = ({ addToCart }) => {
                     marginBottom: "6px",
                   }}
                 >
-                  {product.brand || "SARANS"}
+                  {product.brand || product.category}
                 </p>
                 <Link
                   to={`/product/${product.id}`}
@@ -255,7 +296,7 @@ const Home = ({ addToCart }) => {
                       lineHeight: 1.4,
                     }}
                   >
-                    {product.name}
+                    {product.title}{" "}
                   </h2>
                 </Link>
 
@@ -265,24 +306,9 @@ const Home = ({ addToCart }) => {
                 >
                   ${parseFloat(product.price || 12.99).toFixed(2)}
                 </p>
-
-                <div className="flex justify-center items-center gap-2 mb-5">
-                  <div className="flex text-yellow-400">
-                    {Array.from({ length: 5 }, (_, i) =>
-                      i < Math.round(parseFloat(product.rating) || 0) ? (
-                        <FaStar key={i} className="w-4 h-4" />
-                      ) : (
-                        <FaRegStar key={i} className="w-4 h-4" />
-                      ),
-                    )}
-                  </div>
-                  <span className="text-sm text-gray-500">
-                    ({product.rating || "N/A"})
-                  </span>
-                </div>
               </div>
 
-              {/* consistent button height */}
+              {/* add to bag btn */}
               <div style={{ padding: "0 16px 16px" }}>
                 <button
                   onClick={() => handleAddToCart(product)}

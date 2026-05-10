@@ -5,9 +5,9 @@ const Footer = () => {
   return (
     <footer
       style={{
-        background: "#0f0d1a",
+        background: "#07060d",
         borderTop: "1px solid #2e2050",
-        marginTop: "80px",
+        marginTop: "0px",
       }}
     >
       <div
@@ -146,17 +146,7 @@ const Footer = () => {
               letterSpacing: "0.2em",
             }}
           >
-            © 2024–2025 KaufDE™. All Rights Reserved.
-          </p>
-          <p
-            style={{
-              color: "#7a6a96",
-              fontFamily: "Jost, sans-serif",
-              fontSize: "11px",
-              letterSpacing: "0.2em",
-            }}
-          >
-            Powered by SARANS
+            © 2024–2025 SARANS™. All Rights Reserved.
           </p>
         </div>
       </div>

@@ -1,28 +1,34 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import SplitText from "./SplitText";
+import { FiSend, FiCheck } from "react-icons/fi";
 
 const Contact = () => {
   const form = useRef();
 
+  const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+
   const sendEmail = (e) => {
     e.preventDefault();
+    setSending(true);
 
     emailjs
       .sendForm(
         "service_n3vfxer",
         "template_senzkld",
         form.current,
-        "IyLH_onUBQW3zh1hY"
+        "IyLH_onUBQW3zh1hY",
       )
       .then(
         () => {
-          alert("Message has been sent successfully");
+          setSent(true);
+          setSending(false);
           form.current.reset();
         },
         (error) => {
-          alert("Failed to send", error.text);
-        }
+          setSending(false);
+          console.error("Failed to send", error.text);
+        },
       );
   };
 

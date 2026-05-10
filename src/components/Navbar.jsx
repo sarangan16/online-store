@@ -91,9 +91,10 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
             </Link>
             <Link
               to="/contact"
-              className="font-body text-xs tracking-widest uppercase text-sarans-muted hover:text-sarans-text transition-colors duration-300 relative group"
+              className="font-body text-xs tracking-widest uppercase transition-colors duration-300 relative group"
+              style={{ color: "#7a6a96", textDecoration: "none" }}
             >
-              Kontakt
+              Contakt
               <span className="absolute left-0 -bottom-1 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
             </Link>
 
@@ -227,7 +228,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
                 }}
               >
                 <img
-                  src={item.image}
+                  src={item.thumbnail}
                   alt={item.title}
                   style={{
                     width: "60px",

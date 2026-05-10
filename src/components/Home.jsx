@@ -81,7 +81,12 @@ const Home = ({ addToCart }) => {
   return (
     <div
       id="home"
-      style={{ maxWidth: "1280px", margin: "0 auto", padding: "80px 20px" }}
+      style={{
+        maxWidth: "1280px",
+        margin: "0 auto",
+        padding: "80px 20px",
+        backgroundColor: "#07060d",
+      }}
     >
       {/* section heading */}
       <div style={{ textAlign: "center", marginBottom: "48px" }}>

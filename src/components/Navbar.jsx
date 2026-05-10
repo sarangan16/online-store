@@ -31,7 +31,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
   };
 
   const cartTotal = cartItems
-    .reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0)
+    .reduce((sum, item) => sum + (parseFloat(item.price) || 12.99), 0)
     .toFixed(2);
 
   return (
@@ -45,7 +45,9 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
           right: 0,
           zIndex: 50,
           transition: "all 0.5s ease",
-          backgroundColor: scrolled ? "rgba(7,6,13,0.95)" : "transparent",
+          background: scrolled
+            ? "rgba(7,6,13,0.95)"
+            : "linear-gradient(to bottom, rgba(7,6,13,0.8) 0%, transparent 100%)",
           backdropFilter: scrolled ? "blur(12px)" : "none",
           borderBottom: scrolled ? "1px solid #2e2050" : "none",
         }}
@@ -82,6 +84,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
             <Link
               to="/"
               className="font-body text-xs tracking-widest uppercase text-sarans-muted hover:text-sarans-text transition-colors duration-300 relative group"
+              style={{ color: "#7a6a96", textDecoration: "none" }}
             >
               Store
               <span className="absolute left-0 -bottom-1 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
@@ -252,7 +255,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
                     className="font-body text-sm"
                     style={{ color: "#c9a84c", marginTop: "4px" }}
                   >
-                    ${parseFloat(item.price).toFixed(2)}
+                    ${parseFloat(item.price || 12.99).toFixed(2)}
                   </p>
                 </div>
                 <button

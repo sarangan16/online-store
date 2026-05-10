@@ -18,8 +18,11 @@ function App() {
   }
 
   function removeFromCart(id) {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-    setItemCount((prev) => prev - 1);
+    setCartItems((prev) => {
+      const index = prev.findIndex((item) => item.id === id);
+      if (index === -1) return prev;
+      return [...prev.slice(0, index), ...prev.slice(index + 1)];
+    });
   }
 
   return (

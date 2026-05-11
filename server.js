@@ -6,13 +6,19 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 
-// allow all origins for now - can restrict later in production
-app.use(cors());
-app.options("*", cors());
+// manually set cors headers to make sure it works
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
 
 app.use(express.json());
 
-// creates a stripe checkout session when frontend calls this
 app.post("/create-checkout-session", async (req, res) => {
   const { items } = req.body;
 
@@ -33,8 +39,8 @@ app.post("/create-checkout-session", async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: "http://localhost:3000?payment=success",
-      cancel_url: "http://localhost:3000?payment=cancelled",
+      success_url: "https://kaufde.vercel.app?payment=success",
+      cancel_url: "https://kaufde.vercel.app?payment=cancelled",
     });
 
     res.json({ id: session.id });

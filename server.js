@@ -6,7 +6,11 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://kaufde.vercel.app", "http://localhost:3000"],
+  }),
+);
 app.use(express.json());
 
 // creates a stripe checkout session when frontend calls this

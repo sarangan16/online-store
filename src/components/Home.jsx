@@ -4,54 +4,6 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
-// images for broken api product images
-const CATEGORY_IMAGES = {
-  lipstick: [
-    "https://images.unsplash.com/photo-1631214524020-3c69888f8329?w=400&q=80",
-    "https://images.unsplash.com/photo-1599733589046-833b4a2f5a50?w=400&q=80",
-    "https://images.unsplash.com/photo-1586495777744-4e6232bf8eb7?w=400&q=80",
-    "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400&q=80",
-  ],
-  foundation: [
-    "https://images.unsplash.com/photo-1617897903246-719242758050?w=400&q=80",
-    "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80",
-    "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&q=80",
-  ],
-  eyeshadow: [
-    "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&q=80",
-    "https://images.unsplash.com/photo-1583241475880-083f84372725?w=400&q=80",
-    "https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&q=80",
-  ],
-  blush: [
-    "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&q=80",
-    "https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=400&q=80",
-  ],
-  mascara: [
-    "https://images.unsplash.com/photo-1631214499177-b1f67267a71e?w=400&q=80",
-    "https://images.unsplash.com/photo-1522338140262-f46f5913618a?w=400&q=80",
-  ],
-  bronzer: [
-    "https://images.unsplash.com/photo-1599733594230-6b823276d4b6?w=400&q=80",
-    "https://images.unsplash.com/photo-1560461396-ec0ef7bb5b0f?w=400&q=80",
-  ],
-  nail_polish: [
-    "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400&q=80",
-    "https://images.unsplash.com/photo-1604654894611-6973b7783598?w=400&q=80",
-  ],
-  default: [
-    "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&q=80",
-    "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80",
-    "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&q=80",
-    "https://images.unsplash.com/photo-1560461396-ec0ef7bb5b0f?w=400&q=80",
-  ],
-};
-
-// pick a consistent image for each product based on its id
-function getProductImage(product) {
-  const category = product.product_type || "default";
-  const images = CATEGORY_IMAGES[category] || CATEGORY_IMAGES.default;
-  return images[product.id % images.length];
-}
 
 const Home = ({ addToCart }) => {
   const [products, setProducts] = useState([]);

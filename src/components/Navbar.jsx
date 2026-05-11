@@ -5,14 +5,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { loadStripe } from "@stripe/stripe-js";
 
 const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
-  const [scrolled, setScrolled] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const makePayment = async () => {
     const stripe = await loadStripe(

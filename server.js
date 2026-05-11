@@ -6,11 +6,15 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 
+// allow requests from our vercel frontend
 app.use(
   cors({
     origin: ["https://kaufde.vercel.app", "http://localhost:3000"],
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
   }),
 );
+
 app.use(express.json());
 
 // creates a stripe checkout session when frontend calls this

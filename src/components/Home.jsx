@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FiShoppingBag } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -57,9 +56,7 @@ function getProductImage(product) {
 const Home = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
-  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
 
   const cardsRef = useRef([]);
 

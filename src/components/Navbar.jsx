@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { loadStripe } from "@stripe/stripe-js";
 
 const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -45,11 +44,9 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
           right: 0,
           zIndex: 50,
           transition: "all 0.5s ease",
-          background: scrolled
-            ? "rgba(7,6,13,0.95)"
-            : "linear-gradient(to bottom, rgba(7,6,13,0.8) 0%, transparent 100%)",
-          backdropFilter: scrolled ? "blur(12px)" : "none",
-          borderBottom: scrolled ? "1px solid #2e2050" : "none",
+          background: "rgba(7,6,13,0.85)",
+          backdropFilter: "blur(12px)",
+          borderBottom: "1px solid #2e2050",
         }}
       >
         <div

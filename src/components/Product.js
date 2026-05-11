@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { FaStar, FaRegStar } from "react-icons/fa";
-import { FiArrowLeft, FiShoppingBag, FiCheck } from "react-icons/fi";
+import { FiArrowLeft, FiShoppingBag } from "react-icons/fi";
 
 const Product = ({ addToCart }) => {
   const [product, setProduct] = useState(null);

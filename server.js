@@ -6,14 +6,9 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 
-// allow requests from our vercel frontend
-app.use(
-  cors({
-    origin: ["https://kaufde.vercel.app", "http://localhost:3000"],
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"],
-  }),
-);
+// allow all origins for now - can restrict later in production
+app.use(cors());
+app.options("*", cors());
 
 app.use(express.json());
 

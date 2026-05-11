@@ -12,11 +12,14 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
       "pk_test_51PYN8aAf9XbbjxqDzq7dZzdkJjMrjVIgSwGxApNC4V7To2C2EfVKch6Sj6kYbXzu9eOCsmPNt95ojrem0MYeEkyA00JAqD14BM",
     );
     const body = { items: cartItems };
-    const response = await fetch("/create-checkout-session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
+    const response = await fetch(
+      "https://online-store-production-20e1.up.railway.app/create-checkout-session",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      },
+    );
     const session = await response.json();
     const result = await stripe.redirectToCheckout({ sessionId: session.id });
     if (result.error) alert(result.error.message);

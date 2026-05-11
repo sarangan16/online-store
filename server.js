@@ -39,6 +39,16 @@ app.post("/create-checkout-session", async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
+      // collect customer name and email
+      billing_address_collection: "required",
+      // collect shipping address
+      shipping_address_collection: {
+        allowed_countries: ["US", "GB", "DE", "FR", "AU", "CA", "LK"],
+      },
+      // collect phone number
+      phone_number_collection: {
+        enabled: true,
+      },
       success_url: "https://kaufde.vercel.app?payment=success",
       cancel_url: "https://kaufde.vercel.app?payment=cancelled",
     });

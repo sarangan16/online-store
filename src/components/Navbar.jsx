@@ -39,9 +39,8 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
           right: 0,
           zIndex: 50,
           transition: "all 0.5s ease",
-          background: "rgba(7,6,13,0.85)",
-          backdropFilter: "blur(12px)",
-          borderBottom: "1px solid #2e2050",
+          background: "#ffffff",
+          borderBottom: "1px solid #e8e8e8",
         }}
       >
         <div
@@ -50,7 +49,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            height: "80px",
+            height: "64px",
             maxWidth: "1280px",
             margin: "0 auto",
             padding: "0 40px",
@@ -59,7 +58,14 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
           {/* logo */}
           <Link
             to="/"
-            className="gold-shimmer font-display text-2xl tracking-widest uppercase"
+            style={{
+              fontFamily: "Cormorant Garamond, serif",
+              fontSize: "20px",
+              letterSpacing: "0.3em",
+              color: "#111",
+              textDecoration: "none",
+              textTransform: "uppercase",
+            }}
           >
             SARANS
           </Link>
@@ -76,7 +82,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
             <Link
               to="/"
               className="font-body text-xs tracking-widest uppercase text-sarans-muted hover:text-sarans-text transition-colors duration-300 relative group"
-              style={{ color: "#7a6a96", textDecoration: "none" }}
+              style={{ color: "#555", textDecoration: "none" }}
             >
               Store
               <span className="absolute left-0 -bottom-1 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
@@ -84,7 +90,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
             <Link
               to="/contact"
               className="font-body text-xs tracking-widest uppercase transition-colors duration-300 relative group"
-              style={{ color: "#7a6a96", textDecoration: "none" }}
+              style={{ color: "#555", textDecoration: "none" }}
             >
               Contact
               <span className="absolute left-0 -bottom-1 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
@@ -101,17 +107,15 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
                   cursor: "pointer",
                 }}
               >
-                <FaShoppingCart
-                  style={{ fontSize: "20px", color: "#7a6a96" }}
-                />
+                <FaShoppingCart style={{ fontSize: "18px", color: "#111" }} />
                 {cartItems.length > 0 && (
                   <span
                     style={{
                       position: "absolute",
                       top: "-8px",
                       right: "-8px",
-                      background: "#c9a84c",
-                      color: "#07060d",
+                      background: "#111111",
+                      color: "#ffffff",
                       fontSize: "10px",
                       fontWeight: "bold",
                       borderRadius: "50%",
@@ -152,8 +156,8 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
           right: 0,
           height: "100%",
           width: "360px",
-          backgroundColor: "#0f0d1a",
-          borderLeft: "1px solid #2e2050",
+          backgroundColor: "#ffffff",
+          borderLeft: "1px solid #e8e8e8",
           zIndex: 70,
           display: "flex",
           flexDirection: "column",
@@ -168,7 +172,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
             justifyContent: "space-between",
             alignItems: "center",
             padding: "24px 28px",
-            borderBottom: "1px solid #2e2050",
+            borderBottom: "1px solid #e8e8e8",
           }}
         >
           <div>
@@ -215,8 +219,8 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
                   gap: "16px",
                   padding: "16px",
                   marginBottom: "12px",
-                  background: "#1a1428",
-                  border: "1px solid #2e2050",
+                  background: "#f9f9f9",
+                  border: "1px solid #eee",
                 }}
               >
                 <img
@@ -226,7 +230,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
                     width: "60px",
                     height: "60px",
                     objectFit: "contain",
-                    background: "#07060d",
+                    background: "#f0f0f0",
                   }}
                   onError={(e) => {
                     e.target.src =
@@ -246,7 +250,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
                   </p>
                   <p
                     className="font-body text-sm"
-                    style={{ color: "#c9a84c", marginTop: "4px" }}
+                    style={{ color: "#111", marginTop: "4px" }}
                   >
                     ${parseFloat(item.price || 12.99).toFixed(2)}
                   </p>
@@ -256,7 +260,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
                   style={{
                     background: "none",
                     border: "none",
-                    color: "#7a6a96",
+                    color: "#aaa",
                     cursor: "pointer",
                   }}
                 >
@@ -269,7 +273,7 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
 
         {/* drawer footer */}
         {cartItems.length > 0 && (
-          <div style={{ padding: "24px 28px", borderTop: "1px solid #2e2050" }}>
+          <div style={{ padding: "24px 28px", borderTop: "1px solid #e8e8e8" }}>
             <div className="gold-divider" style={{ marginBottom: "16px" }} />
             <div
               style={{
@@ -281,7 +285,13 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
               <span className="font-body text-xs tracking-widest uppercase text-sarans-muted">
                 Total
               </span>
-              <span className="font-display text-2xl gold-text">
+              <span
+                style={{
+                  fontFamily: "Cormorant Garamond, serif",
+                  fontSize: "24px",
+                  color: "#111",
+                }}
+              >
                 ${cartTotal}
               </span>
             </div>

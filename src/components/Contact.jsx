@@ -174,39 +174,6 @@ const Contact = () => {
             ))}
 
             {/* little brand quote at the bottom */}
-            <div
-              style={{
-                background: "#0f0d1a",
-                border: "1px solid #2e2050",
-                padding: "28px",
-                marginTop: "8px",
-              }}
-            >
-              <p
-                style={{
-                  fontFamily: "Cormorant Garamond, serif",
-                  fontSize: "20px",
-                  color: "#ede8f5",
-                  fontStyle: "italic",
-                  lineHeight: 1.6,
-                }}
-              >
-                "Beauty is the art of finding the extraordinary in the
-                everyday."
-              </p>
-              <p
-                style={{
-                  color: "#c9a84c",
-                  fontSize: "10px",
-                  letterSpacing: "0.4em",
-                  textTransform: "uppercase",
-                  fontFamily: "Jost, sans-serif",
-                  marginTop: "12px",
-                }}
-              >
-                — SARANS
-              </p>
-            </div>
           </div>
 
           {/* right side - the actual form */}

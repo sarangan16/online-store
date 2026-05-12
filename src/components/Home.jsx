@@ -79,14 +79,14 @@ const Home = ({ addToCart }) => {
         maxWidth: "1280px",
         margin: "0 auto",
         padding: "80px 20px",
-        backgroundColor: "#07060d",
+        backgroundColor: "#ffffff",
       }}
     >
       {/* section heading */}
       <div style={{ textAlign: "center", marginBottom: "48px" }}>
         <p
           style={{
-            color: "#c9a84c",
+            color: "#999",
             fontSize: "11px",
             letterSpacing: "0.5em",
             textTransform: "uppercase",
@@ -100,18 +100,14 @@ const Home = ({ addToCart }) => {
           style={{
             fontFamily: "Cormorant Garamond, serif",
             fontSize: "52px",
-            color: "#ede8f5",
-            lineHeight: 1.1,
-            marginBottom: "16px",
+            color: "#111",
           }}
         >
           Discover{" "}
           <span
             style={{
               fontStyle: "italic",
-              background: "linear-gradient(135deg, #9a7a30, #c9a84c, #f5e6a3)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
+              color: "#111",
             }}
           >
             Beauty
@@ -119,7 +115,12 @@ const Home = ({ addToCart }) => {
         </h2>
         <div
           className="gold-divider"
-          style={{ width: "120px", margin: "0 auto" }}
+          style={{
+            width: "40px",
+            height: "1px",
+            background: "#111",
+            margin: "0 auto",
+          }}
         />
       </div>
 
@@ -153,9 +154,9 @@ const Home = ({ addToCart }) => {
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
                 fontFamily: "Jost, sans-serif",
-                border: "1px solid #2e2050",
+                border: "1px solid #ddd",
                 background: "transparent",
-                color: "#7a6a96",
+                color: "#777",
                 cursor: "pointer",
                 transition: "all 0.2s ease",
               }}
@@ -176,8 +177,8 @@ const Home = ({ addToCart }) => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(12, 1fr)",
-          gap: "16px",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "2px",
         }}
       >
         {" "}
@@ -193,24 +194,8 @@ const Home = ({ addToCart }) => {
               ref={(el) => (cardsRef.current[i] = el)}
               className="card-hover"
               style={{
-                background: "#0f0d1a",
-                border: "1px solid #2e2050",
-                gridColumn:
-                  i === 0
-                    ? "span 5"
-                    : i === 1
-                      ? "span 7"
-                      : i === 2
-                        ? "span 4"
-                        : i === 3
-                          ? "span 4"
-                          : i === 4
-                            ? "span 4"
-                            : i === 5
-                              ? "span 7"
-                              : i === 6
-                                ? "span 5"
-                                : "span 3",
+                background: "#ffffff",
+                border: "none",
                 position: "relative",
                 overflow: "hidden",
               }}
@@ -223,13 +208,11 @@ const Home = ({ addToCart }) => {
                 <div
                   style={{
                     width: "100%",
-                    height:
-                      i === 0 || i === 1 || i === 5 || i === 6
-                        ? "420px"
-                        : "280px",
+                    height: "280px",
+
                     overflow: "hidden",
                     position: "relative",
-                    background: "#1a1428",
+                    background: "#f5f5f5",
                   }}
                 >
                   <img
@@ -238,7 +221,8 @@ const Home = ({ addToCart }) => {
                     style={{
                       width: "100%",
                       height: "100%",
-                      objectFit: "cover",
+                      objectFit: "contain",
+                      padding: "20px",
                       transition: "transform 0.7s ease",
                     }}
                     onMouseEnter={(e) =>
@@ -248,61 +232,54 @@ const Home = ({ addToCart }) => {
                       (e.target.style.transform = "scale(1)")
                     }
                   />
-                  {/* gradient overlay */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      background:
-                        "linear-gradient(to top, rgba(7,6,13,0.95) 0%, rgba(7,6,13,0.3) 50%, transparent 100%)",
-                    }}
-                  />
-                  {/* text on image */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      padding: "20px",
-                    }}
-                  >
-                    <p
-                      style={{
-                        color: "#c9a84c",
-                        fontSize: "9px",
-                        letterSpacing: "0.4em",
-                        textTransform: "uppercase",
-                        fontFamily: "Jost, sans-serif",
-                        marginBottom: "6px",
-                      }}
-                    >
-                      {product.brand || product.category}
-                    </p>
-                    <h2
-                      style={{
-                        fontFamily: "Cormorant Garamond, serif",
-                        fontSize: i === 0 || i === 1 ? "24px" : "17px",
-                        color: "#ede8f5",
-                        lineHeight: 1.2,
-                        marginBottom: "6px",
-                      }}
-                    >
-                      {product.title}
-                    </h2>
-                    <p
-                      style={{
-                        color: "#c9a84c",
-                        fontFamily: "Jost, sans-serif",
-                        fontSize: "13px",
-                        fontWeight: 500,
-                      }}
-                    >
-                      ${parseFloat(product.price || 12.99).toFixed(2)}
-                    </p>
-                  </div>
                 </div>
               </Link>
+              <div style={{ padding: "14px 4px 20px" }}>
+                <p
+                  style={{
+                    fontSize: "9px",
+                    letterSpacing: "0.35em",
+                    textTransform: "uppercase",
+                    color: "#999",
+                    fontFamily: "Jost, sans-serif",
+                    marginBottom: "5px",
+                  }}
+                >
+                  {product.brand || product.category}
+                </p>
+                <Link
+                  to={`/product/${product.id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <p
+                    style={{
+                      fontFamily: "Cormorant Garamond, serif",
+                      fontSize: "15px",
+                      color: "#111",
+                      lineHeight: 1.4,
+                      marginBottom: "10px",
+                    }}
+                  >
+                    {product.title}
+                  </p>
+                </Link>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <span style={{ fontSize: "13px", color: "#111" }}>
+                    ${parseFloat(product.price || 12.99).toFixed(2)}
+                  </span>
+                  {product.rating && (
+                    <span style={{ fontSize: "11px", color: "#999" }}>
+                      ★ {product.rating}
+                    </span>
+                  )}
+                </div>
+              </div>
 
               {/* add to bag button */}
               <div style={{ padding: "12px 16px" }}>

@@ -1,6 +1,6 @@
 body {
-  background-color: #07060d;
-  color: #ede8f5;
+  background-color: #ffffff;
+  color: #111111;
   font-family: 'Jost', sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -8,12 +8,12 @@ body {
 }
 
 html {
-  background-color: #07060d;
+  background-color: #ffffff;
 }
 
 ::-webkit-scrollbar       { width: 5px; }
-::-webkit-scrollbar-track { background: #07060d; }
-::-webkit-scrollbar-thumb { background: #c9a84c; border-radius: 4px; }
+::-webkit-scrollbar-track { background: #f5f5f5; }
+::-webkit-scrollbar-thumb { background: #111111; border-radius: 4px; }
 /* gold text utility */
 .gold-text {
   background: linear-gradient(135deg, #9a7a30, #c9a84c, #f5e6a3);
@@ -42,9 +42,8 @@ html {
   transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
 .card-hover:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 40px rgba(201,168,76,0.12);
-  border-color: rgba(201,168,76,0.35) !important;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
 }
 
 /* gold filled button */
@@ -54,8 +53,8 @@ html {
   justify-content: center;
   gap: 8px;
   background: linear-gradient(135deg, #9a7a30, #c9a84c, #f5e6a3, #c9a84c, #9a7a30);
-  background-size: 300% 100%;
-  color: #07060d;
+  background: #111111;
+  color: #ffffff;
   font-family: 'Jost', sans-serif;
   font-size: 0.7rem;
   font-weight: 600;
@@ -67,8 +66,8 @@ html {
   transition: background-position 0.5s ease, box-shadow 0.3s ease;
 }
 .btn-gold:hover {
-  background-position: 100% 0;
-  box-shadow: 0 0 30px rgba(201,168,76,0.4);
+  background: #333333;
+  box-shadow: none;
 }
 
 /* ghost outline button */
@@ -78,14 +77,14 @@ html {
   justify-content: center;
   gap: 8px;
   background: transparent;
-  color: #c9a84c;
+  color: #111111;
   font-family: 'Jost', sans-serif;
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   padding: 13px 35px;
-  border: 1px solid #c9a84c;
+  border: 1px solid #111111;
   cursor: pointer;
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
@@ -96,9 +95,9 @@ html {
 
 /* luxury input */
 .input-luxury {
-  background: #0f0d1a;
-  border: 1px solid #2e2050;
-  color: #ede8f5;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  color: #111111;
   font-family: 'Jost', sans-serif;
   font-size: 0.85rem;
   padding: 12px 18px;
@@ -106,8 +105,8 @@ html {
   width: 100%;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-.input-luxury::placeholder { color: #7a6a96; }
+.input-luxury::placeholder { color: #aaa; }
 .input-luxury:focus {
-  border-color: #c9a84c;
-  box-shadow: 0 0 0 3px rgba(201,168,76,0.08);
+  border-color: #111111;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.06);
 }

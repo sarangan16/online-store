@@ -8,9 +8,8 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const makePayment = async () => {
-    const stripe = await loadStripe(
-      "pk_test_51PYN8aAf9XbbjxqDzq7dZzdkJjMrjVIgSwGxApNC4V7To2C2EfVKch6Sj6kYbXzu9eOCsmPNt95ojrem0MYeEkyA00JAqD14BM",
-    );
+    const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PK);
+
     const body = { items: cartItems };
     const response = await fetch(
       "https://online-store-production-20e1.up.railway.app/create-checkout-session",

@@ -4,21 +4,21 @@ import { Link } from "react-router-dom";
 const SLIDES = [
   {
     img: "https://images.unsplash.com/photo-1696603975421-f90583dcd44e?w=1600&q=90",
-    tag: "New Collection",
-    heading: "Beauty is\nyour art.",
-    sub: "Handpicked luxury cosmetics for those who see beauty as a lifestyle.",
+    tag: "Luxury Collection",
+    heading: "Beauty, crafted\nfor icons.",
+    sub: "Indulgent skincare and couture cosmetics designed to elevate every ritual.",
   },
   {
     img: "https://plus.unsplash.com/premium_photo-1661458426554-d2c7365bb0ed?w=1600&q=90",
-    tag: "Bestsellers",
-    heading: "Define your\nown glow.",
-    sub: "Premium formulas. Iconic shades. Effortless elegance.",
+    tag: "Signature Bestsellers",
+    heading: "Glow beyond\nthe ordinary.",
+    sub: "Velvet textures, radiant finishes, and timeless shades loved by beauty insiders.",
   },
   {
     img: "https://images.unsplash.com/photo-1564836949415-da93f0419a62?w=1600&q=90",
-    tag: "Editor's Pick",
-    heading: "Your canvas.\nYour rules.",
-    sub: "Explore the SARANS collection — curated for the bold.",
+    tag: "Brand Exclusive",
+    heading: "Own the look.\nRule the moment.",
+    sub: "Curated luxury essentials for bold expression, modern elegance, and effortless confidence.",
   },
 ];
 

@@ -3,19 +3,19 @@ import { Link } from "react-router-dom";
 
 const SLIDES = [
   {
-    img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=90",
+    img: "https://images.unsplash.com/photo-1696603975421-f90583dcd44e?w=1600&q=90",
     tag: "New Collection",
     heading: "Beauty is\nyour art.",
     sub: "Handpicked luxury cosmetics for those who see beauty as a lifestyle.",
   },
   {
-    img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=1600&q=90",
+    img: "https://plus.unsplash.com/premium_photo-1661458426554-d2c7365bb0ed?w=1600&q=90",
     tag: "Bestsellers",
     heading: "Define your\nown glow.",
     sub: "Premium formulas. Iconic shades. Effortless elegance.",
   },
   {
-    img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1600&q=90",
+    img: "https://images.unsplash.com/photo-1564836949415-da93f0419a62?w=1600&q=90",
     tag: "Editor's Pick",
     heading: "Your canvas.\nYour rules.",
     sub: "Explore the SARANS collection — curated for the bold.",
@@ -109,7 +109,7 @@ const Hero = () => {
           style={{
             maxWidth: "1280px",
             margin: "0 auto",
-            padding: "0 40px",
+            padding: "0 60px",
             width: "100%",
           }}
         >
@@ -186,7 +186,11 @@ const Hero = () => {
               <a href="#home" className="btn-gold">
                 Shop Collection
               </a>
-              <Link to="/contact" className="btn-ghost">
+              <Link
+                to="/contact"
+                className="btn-ghost"
+                style={{ color: "#fff", borderColor: "#fff" }}
+              >
                 Our Story
               </Link>
             </div>

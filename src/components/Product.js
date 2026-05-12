@@ -9,7 +9,7 @@ const Product = ({ addToCart }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://makeup-api.herokuapp.com/api/v1/products/${id}.json`)
+    fetch(`https://dummyjson.com/products/${id}`)
       .then((res) => res.json())
       .then((data) => setProduct(data))
       .catch(() => {
@@ -31,7 +31,7 @@ const Product = ({ addToCart }) => {
           style={{
             width: "32px",
             height: "32px",
-            border: "2px solid #c9a84c",
+            border: "2px solid #111",
             borderTopColor: "transparent",
             borderRadius: "50%",
             animation: "spin 0.8s linear infinite",
@@ -46,9 +46,10 @@ const Product = ({ addToCart }) => {
   const description = product.description
     ? product.description.replace(/<[^>]*>/g, "")
     : "A luxurious addition to your beauty collection.";
-  const imgSrc = product.image_link
-    ? product.image_link.replace("http://", "https://")
-    : "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80";
+  const imgSrc =
+    product.thumbnail ||
+    product.images?.[0] ||
+    "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80";
 
   const reviews = [
     {
@@ -106,8 +107,8 @@ const Product = ({ addToCart }) => {
           {/* image */}
           <div
             style={{
-              background: "#0f0d1a",
-              border: "1px solid #2e2050",
+              background: "#f5f5f5",
+              border: "none",
               overflow: "hidden",
               aspectRatio: "1",
               position: "relative",
@@ -115,34 +116,16 @@ const Product = ({ addToCart }) => {
           >
             <img
               src={imgSrc}
-              alt={product.name}
+              alt={product.title}
               onError={(e) => {
                 e.target.src =
                   "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80";
               }}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-            {/* corner decorations */}
-            <div
               style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "40px",
-                height: "40px",
-                borderTop: "2px solid rgba(201,168,76,0.3)",
-                borderLeft: "2px solid rgba(201,168,76,0.3)",
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                bottom: 0,
-                right: 0,
-                width: "40px",
-                height: "40px",
-                borderBottom: "2px solid rgba(201,168,76,0.3)",
-                borderRight: "2px solid rgba(201,168,76,0.3)",
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+                padding: "24px",
               }}
             />
           </div>
@@ -159,7 +142,7 @@ const Product = ({ addToCart }) => {
             <div>
               <p
                 style={{
-                  color: "#c9a84c",
+                  color: "#999",
                   fontSize: "11px",
                   letterSpacing: "0.4em",
                   textTransform: "uppercase",
@@ -167,17 +150,17 @@ const Product = ({ addToCart }) => {
                   marginBottom: "8px",
                 }}
               >
-                {product.brand || "SARANS"} — {product.product_type || "Beauty"}
+                {product.brand || "SARANS"} — {product.category || "Beauty"}
               </p>
               <h1
                 style={{
                   fontFamily: "Cormorant Garamond, serif",
                   fontSize: "42px",
-                  color: "#ede8f5",
+                  color: "#111",
                   lineHeight: 1.1,
                 }}
               >
-                {product.name}
+                {product.title}
               </h1>
             </div>
 
@@ -191,7 +174,7 @@ const Product = ({ addToCart }) => {
                     <FaStar
                       key={i}
                       style={{
-                        color: "#c9a84c",
+                        color: "#111",
                         width: "14px",
                         height: "14px",
                       }}
@@ -200,7 +183,7 @@ const Product = ({ addToCart }) => {
                     <FaRegStar
                       key={i}
                       style={{
-                        color: "#2e2050",
+                        color: "#999",
                         width: "14px",
                         height: "14px",
                       }}
@@ -220,17 +203,14 @@ const Product = ({ addToCart }) => {
               </div>
             )}
 
-            <div className="gold-divider" />
+            <div style={{ height: "1px", background: "#eee" }} />
 
             {/* price */}
             <p
               style={{
                 fontFamily: "Cormorant Garamond, serif",
                 fontSize: "36px",
-                background:
-                  "linear-gradient(135deg, #9a7a30, #c9a84c, #f5e6a3)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
+                color: "#111",
               }}
             >
               {price}
@@ -239,7 +219,7 @@ const Product = ({ addToCart }) => {
             {/* description */}
             <p
               style={{
-                color: "#7a6a96",
+                color: "#555",
                 fontFamily: "Jost, sans-serif",
                 fontSize: "14px",
                 lineHeight: 1.8,
@@ -247,40 +227,6 @@ const Product = ({ addToCart }) => {
             >
               {description.slice(0, 300)}
             </p>
-
-            {/* color swatches */}
-            {product.product_colors && product.product_colors.length > 0 && (
-              <div>
-                <p
-                  style={{
-                    color: "#7a6a96",
-                    fontSize: "10px",
-                    letterSpacing: "0.4em",
-                    textTransform: "uppercase",
-                    fontFamily: "Jost, sans-serif",
-                    marginBottom: "10px",
-                  }}
-                >
-                  Available Shades
-                </p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                  {product.product_colors.slice(0, 12).map((color, i) => (
-                    <div
-                      key={i}
-                      title={color.colour_name}
-                      style={{
-                        width: "24px",
-                        height: "24px",
-                        borderRadius: "50%",
-                        backgroundColor: color.hex_value,
-                        border: "1px solid #2e2050",
-                        cursor: "pointer",
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
 
             {/* add to cart */}
             <button
@@ -293,7 +239,7 @@ const Product = ({ addToCart }) => {
 
             <p
               style={{
-                color: "#7a6a96",
+                color: "#aaa",
                 fontSize: "10px",
                 letterSpacing: "0.3em",
                 textTransform: "uppercase",
@@ -313,14 +259,18 @@ const Product = ({ addToCart }) => {
               style={{
                 fontFamily: "Cormorant Garamond, serif",
                 fontSize: "42px",
-                color: "#ede8f5",
+                color: "#111",
               }}
             >
               What They Say
             </h2>
             <div
-              className="gold-divider"
-              style={{ width: "100px", margin: "16px auto 0" }}
+              style={{
+                width: "40px",
+                height: "1px",
+                background: "#111",
+                margin: "16px auto 0",
+              }}
             />
           </div>
 
@@ -335,8 +285,8 @@ const Product = ({ addToCart }) => {
               <div
                 key={idx}
                 style={{
-                  background: "#0f0d1a",
-                  border: "1px solid #2e2050",
+                  background: "#f9f9f9",
+                  border: "1px solid #eee",
                   padding: "28px",
                 }}
                 className="card-hover"
@@ -348,19 +298,19 @@ const Product = ({ addToCart }) => {
                     i < review.rating ? (
                       <FaStar
                         key={i}
-                        style={{ color: "#c9a84c", width: "12px" }}
+                        style={{ color: "#111", width: "12px" }}
                       />
                     ) : (
                       <FaRegStar
                         key={i}
-                        style={{ color: "#2e2050", width: "12px" }}
+                        style={{ color: "#ddd", width: "12px" }}
                       />
                     ),
                   )}
                 </div>
                 <p
                   style={{
-                    color: "#7a6a96",
+                    color: "#555",
                     fontFamily: "Jost, sans-serif",
                     fontSize: "13px",
                     lineHeight: 1.7,
@@ -378,12 +328,12 @@ const Product = ({ addToCart }) => {
                       width: "32px",
                       height: "32px",
                       borderRadius: "50%",
-                      background: "#1a1428",
-                      border: "1px solid rgba(201,168,76,0.3)",
+                      background: "#f0f0f0",
+                      border: "1px solid #ddd",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#c9a84c",
+                      color: "#111",
                       fontFamily: "Cormorant Garamond, serif",
                       fontSize: "16px",
                     }}
@@ -392,7 +342,7 @@ const Product = ({ addToCart }) => {
                   </div>
                   <span
                     style={{
-                      color: "#ede8f5",
+                      color: "#111",
                       fontFamily: "Jost, sans-serif",
                       fontSize: "12px",
                       letterSpacing: "0.1em",

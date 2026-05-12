@@ -5,8 +5,8 @@ const Footer = () => {
   return (
     <footer
       style={{
-        background: "#07060d",
-        borderTop: "1px solid #2e2050",
+        background: "#f9f9f9",
+        borderTop: "1px solid #e8e8e8",
         marginTop: "0px",
       }}
     >
@@ -32,10 +32,7 @@ const Footer = () => {
               style={{
                 fontFamily: "Cormorant Garamond, serif",
                 fontSize: "28px",
-                background:
-                  "linear-gradient(135deg, #9a7a30, #c9a84c, #f5e6a3)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
+                color: "#111",
                 letterSpacing: "0.2em",
                 marginBottom: "16px",
               }}
@@ -44,11 +41,9 @@ const Footer = () => {
             </h3>
             <p
               style={{
-                color: "#7a6a96",
+                color: "#888",
                 fontFamily: "Jost, sans-serif",
                 fontSize: "13px",
-                lineHeight: 1.8,
-                maxWidth: "280px",
               }}
             >
               Luxury cosmetics curated for those who believe beauty is an art
@@ -60,7 +55,7 @@ const Footer = () => {
           <div>
             <p
               style={{
-                color: "#ede8f5",
+                color: "#111",
                 fontSize: "10px",
                 letterSpacing: "0.4em",
                 textTransform: "uppercase",
@@ -81,14 +76,14 @@ const Footer = () => {
                   key={to}
                   to={to}
                   style={{
-                    color: "#7a6a96",
+                    color: "#888",
                     fontFamily: "Jost, sans-serif",
                     fontSize: "13px",
                     textDecoration: "none",
                     transition: "color 0.2s",
                   }}
-                  onMouseEnter={(e) => (e.target.style.color = "#c9a84c")}
-                  onMouseLeave={(e) => (e.target.style.color = "#7a6a96")}
+                  onMouseEnter={(e) => (e.target.style.color = "#111")}
+                  onMouseLeave={(e) => (e.target.style.color = "#888")}
                 >
                   {label}
                 </Link>
@@ -128,7 +123,9 @@ const Footer = () => {
         </div>
 
         {/* divider */}
-        <div className="gold-divider" style={{ marginBottom: "24px" }} />
+        <div
+          style={{ height: "1px", background: "#e8e8e8", marginBottom: "24px" }}
+        />
 
         {/* bottom */}
         <div

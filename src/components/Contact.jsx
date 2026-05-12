@@ -39,25 +39,9 @@ const Contact = () => {
         paddingTop: "120px",
         paddingBottom: "80px",
         position: "relative",
-        backgroundColor: "#07060d",
+        backgroundColor: "#ffffff",
       }}
     >
-      {/* background glow - saw this effect on dribbble wanted to try it */}
-      <div
-        style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "600px",
-          height: "600px",
-          background: "rgba(201,168,76,0.03)",
-          borderRadius: "50%",
-          filter: "blur(120px)",
-          pointerEvents: "none",
-        }}
-      />
-
       <div
         style={{
           maxWidth: "1000px",
@@ -71,7 +55,7 @@ const Contact = () => {
         <div style={{ textAlign: "center", marginBottom: "64px" }}>
           <p
             style={{
-              color: "#c9a84c",
+              color: "#999",
               fontSize: "11px",
               letterSpacing: "0.5em",
               textTransform: "uppercase",
@@ -85,28 +69,21 @@ const Contact = () => {
             style={{
               fontFamily: "Cormorant Garamond, serif",
               fontSize: "clamp(48px, 8vw, 80px)",
-              color: "#ede8f5",
+              color: "#111",
               lineHeight: 1.05,
               marginBottom: "20px",
             }}
           >
             Get in{" "}
-            <span
-              style={{
-                fontStyle: "italic",
-                background:
-                  "linear-gradient(135deg, #9a7a30, #c9a84c, #f5e6a3)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              touch.
-            </span>
+            <span style={{ fontStyle: "italic", color: "#111" }}>touch.</span>
           </h1>
-          {/* gold line divider */}
           <div
-            className="gold-divider"
-            style={{ width: "100px", margin: "0 auto" }}
+            style={{
+              width: "40px",
+              height: "1px",
+              background: "#111",
+              margin: "0 auto",
+            }}
           />
         </div>
 
@@ -125,7 +102,7 @@ const Contact = () => {
           >
             <p
               style={{
-                color: "#7a6a96",
+                color: "#555",
                 fontFamily: "Jost, sans-serif",
                 fontSize: "14px",
                 lineHeight: 1.9,
@@ -145,13 +122,13 @@ const Contact = () => {
               <div
                 key={item.label}
                 style={{
-                  borderLeft: "2px solid rgba(201,168,76,0.4)",
+                  borderLeft: "2px solid #111",
                   paddingLeft: "20px",
                 }}
               >
                 <p
                   style={{
-                    color: "#c9a84c",
+                    color: "#999",
                     fontSize: "10px",
                     letterSpacing: "0.4em",
                     textTransform: "uppercase",
@@ -163,7 +140,7 @@ const Contact = () => {
                 </p>
                 <p
                   style={{
-                    color: "#ede8f5",
+                    color: "#111",
                     fontFamily: "Jost, sans-serif",
                     fontSize: "14px",
                   }}
@@ -172,18 +149,15 @@ const Contact = () => {
                 </p>
               </div>
             ))}
-
-            {/* little brand quote at the bottom */}
           </div>
 
-          {/* right side - the actual form */}
           <div>
             {/* show success message after sending */}
             {sent ? (
               <div
                 style={{
-                  background: "#0f0d1a",
-                  border: "1px solid rgba(201,168,76,0.3)",
+                  background: "#f9f9f9",
+                  border: "1px solid #eee",
                   padding: "48px",
                   textAlign: "center",
                   display: "flex",
@@ -197,27 +171,27 @@ const Contact = () => {
                     width: "56px",
                     height: "56px",
                     borderRadius: "50%",
-                    background: "rgba(201,168,76,0.1)",
-                    border: "1px solid rgba(201,168,76,0.3)",
+                    background: "#f0f0f0",
+                    border: "1px solid #ddd",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  <FiCheck size={24} color="#c9a84c" />
+                  <FiCheck size={24} color="#111" />
                 </div>
                 <h3
                   style={{
                     fontFamily: "Cormorant Garamond, serif",
                     fontSize: "28px",
-                    color: "#ede8f5",
+                    color: "#111",
                   }}
                 >
                   Message Sent
                 </h3>
                 <p
                   style={{
-                    color: "#7a6a96",
+                    color: "#888",
                     fontFamily: "Jost, sans-serif",
                     fontSize: "13px",
                   }}
@@ -233,6 +207,7 @@ const Contact = () => {
                   display: "flex",
                   flexDirection: "column",
                   gap: "20px",
+                  width: "100%",
                 }}
               >
                 {/* looping through fields to keep things clean */}
@@ -260,7 +235,7 @@ const Contact = () => {
                     <label
                       style={{
                         display: "block",
-                        color: "#7a6a96",
+                        color: "#999",
                         fontSize: "10px",
                         letterSpacing: "0.4em",
                         textTransform: "uppercase",
@@ -285,7 +260,7 @@ const Contact = () => {
                   <label
                     style={{
                       display: "block",
-                      color: "#7a6a96",
+                      color: "#999",
                       fontSize: "10px",
                       letterSpacing: "0.4em",
                       textTransform: "uppercase",
@@ -310,7 +285,7 @@ const Contact = () => {
                   type="submit"
                   disabled={sending}
                   className="btn-gold"
-                  style={{ width: "100%" }}
+                  style={{ width: "100%", boxSizing: "border-box" }}
                 >
                   {sending ? (
                     <span
@@ -325,7 +300,7 @@ const Contact = () => {
                         style={{
                           width: "12px",
                           height: "12px",
-                          border: "2px solid #07060d",
+                          border: "2px solid #ffffff",
                           borderTopColor: "transparent",
                           borderRadius: "50%",
                           animation: "spin 0.8s linear infinite",

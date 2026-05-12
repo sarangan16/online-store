@@ -137,7 +137,7 @@ const Footer = () => {
         >
           <p
             style={{
-              color: "#7a6a96",
+              color: "#aaa",
               fontFamily: "Jost, sans-serif",
               fontSize: "11px",
               letterSpacing: "0.2em",

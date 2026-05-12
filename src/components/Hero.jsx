@@ -117,7 +117,7 @@ const Hero = () => {
             {/* tag */}
             <p
               style={{
-                color: "#c9a84c",
+                color: "#ffffff",
                 fontSize: "11px",
                 letterSpacing: "0.5em",
                 textTransform: "uppercase",
@@ -132,7 +132,7 @@ const Hero = () => {
                 style={{
                   width: "32px",
                   height: "1px",
-                  background: "#c9a84c",
+                  background: "#ffffff",
                   display: "inline-block",
                 }}
               />
@@ -155,12 +155,9 @@ const Hero = () => {
                   style={
                     i === 1
                       ? {
-                          background:
-                            "linear-gradient(135deg, #9a7a30, #c9a84c, #f5e6a3)",
-                          WebkitBackgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
                           fontStyle: "italic",
                           display: "block",
+                          color: "#ffffff",
                         }
                       : { display: "block" }
                   }
@@ -173,7 +170,7 @@ const Hero = () => {
             {/* subheading */}
             <p
               style={{
-                color: "#7a6a96",
+                color: "rgba(255,255,255,0.7)",
                 fontFamily: "Jost, sans-serif",
                 fontSize: "16px",
                 lineHeight: 1.7,
@@ -216,7 +213,7 @@ const Hero = () => {
               width: idx === current ? "32px" : "6px",
               height: "6px",
               borderRadius: "3px",
-              background: idx === current ? "#c9a84c" : "rgba(201,168,76,0.3)",
+              background: idx === current ? "#ffffff" : "rgba(201,168,76,0.3)",
               border: "none",
               cursor: "pointer",
               transition: "all 0.4s ease",
@@ -243,7 +240,7 @@ const Hero = () => {
           style={{
             width: "1px",
             height: "48px",
-            background: "linear-gradient(to bottom, #c9a84c, transparent)",
+            background: "linear-gradient(to bottom, #ffffff, transparent)",
           }}
         />
         <p

@@ -180,10 +180,11 @@ const Home = ({ addToCart }) => {
 
       {/* product grid listing */}
       <div
+        className="grid-3col-home"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "2px",
+          gap: "15px",
         }}
       >
         {" "}
@@ -238,7 +239,7 @@ const Home = ({ addToCart }) => {
                   />
                 </div>
               </Link>
-              <div style={{ padding: "14px 4px 20px" }}>
+              <div style={{ padding: "14px 10px 20px" }}>
                 <p
                   style={{
                     fontSize: "9px",

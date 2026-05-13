@@ -101,6 +101,7 @@ const Product = ({ addToCart }) => {
 
         {/* product section */}
         <div
+          className="grid-2col"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
@@ -279,6 +280,7 @@ const Product = ({ addToCart }) => {
           </div>
 
           <div
+            className="grid-3col"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",

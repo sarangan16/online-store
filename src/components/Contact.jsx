@@ -93,6 +93,7 @@ const Contact = () => {
 
         {/* two column layout - info on left, form on right */}
         <div
+          className="grid-2col"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",

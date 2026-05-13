@@ -6,6 +6,10 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
+import Shipping from "./components/Shipping";
+
+import About from "./components/About";
+
 import "./App.css";
 
 function App() {
@@ -98,6 +102,8 @@ function App() {
             </>
           }
         />
+        <Route path="/about" element={<About />} />
+        <Route path="/shipping" element={<Shipping />} />
 
         <Route path="/contact" element={<Contact />} />
         <Route

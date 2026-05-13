@@ -9,6 +9,7 @@ const Home = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("");
 
   const cardsRef = useRef([]);
 
@@ -65,6 +66,7 @@ const Home = ({ addToCart }) => {
   }, [products]);
 
   const handleCategoryChange = (category) => {
+    setActiveCategory(category);
     loadProducts(category);
   };
 
@@ -144,26 +146,29 @@ const Home = ({ addToCart }) => {
           style={{ maxWidth: "300px" }}
         />
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          {MAKEUP_CATEGORIES.map((cat) => (
-            <button
-              key={cat.value}
-              onClick={() => handleCategoryChange(cat.value)}
-              style={{
-                padding: "8px 20px",
-                fontSize: "11px",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                fontFamily: "Jost, sans-serif",
-                border: "1px solid #ddd",
-                background: "transparent",
-                color: "#777",
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-              }}
-            >
-              {cat.label}
-            </button>
-          ))}
+          {MAKEUP_CATEGORIES.map((cat) => {
+            const isActive = activeCategory === cat.value;
+            return (
+              <button
+                key={cat.value}
+                onClick={() => handleCategoryChange(cat.value)}
+                style={{
+                  padding: "8px 20px",
+                  fontSize: "11px",
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  fontFamily: "Jost, sans-serif",
+                  border: "1px solid #111",
+                  background: isActive ? "#111" : "transparent",
+                  color: isActive ? "#fff" : "#777",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                {cat.label}
+              </button>
+            );
+          })}
         </div>
       </div>
 

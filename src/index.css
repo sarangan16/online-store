@@ -26,7 +26,27 @@ html {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
+.desktop-nav{
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .grid-2col { grid-template-columns: 1fr !important; }
+  .grid-3col { grid-template-columns: 1fr !important; }
+  .grid-3col-home { grid-template-columns: repeat(2, 1fr) !important; }
+  .mobile-padding { padding: 20px 16px !important; }
+  .mobile-hide { display: none !important; }
+  .mobile-text-sm { font-size: 28px !important; }
+}
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .hamburger-btn {
+    display: flex !important;
+  }
+}
 /* animated shimmer gold text */
 .gold-shimmer {
   background: linear-gradient(90deg, #9a7a30 0%, #c9a84c 25%, #f5e6a3 50%, #c9a84c 75%, #9a7a30 100%);
@@ -98,7 +118,6 @@ html {
   box-shadow: 0 0 20px rgba(201,168,76,0.2);
 }
 
-/* luxury input */
 .input-luxury {
   background: #ffffff;
   border: 1px solid #ddd;
@@ -114,4 +133,24 @@ html {
 .input-luxury:focus {
   border-color: #111111;
   box-shadow: 0 0 0 2px rgba(0,0,0,0.06);
+}
+
+
+/* ──  mobile screen ── */
+@media (max-width: 768px) {
+
+  /* home grid  on mobile */
+  #home {
+    padding: 20px 16px !important;
+  }
+
+  /* product grid */
+  #home > div:last-child {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* filter buttons  */
+  #home input {
+    max-width: 100% !important;
+  }
 }

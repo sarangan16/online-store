@@ -109,6 +109,7 @@ const About = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              borderRadius: "32px 32px 120px 120px",
             }}
           >
             <img
@@ -119,6 +120,7 @@ const About = () => {
                 height: "100%",
                 objectFit: "cover",
                 display: "block",
+                borderRadius: "32px 32px 120px 120px",
               }}
             />
           </div>

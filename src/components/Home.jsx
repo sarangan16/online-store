@@ -209,7 +209,6 @@ const Home = ({ addToCart }) => {
                   style={{
                     width: "100%",
                     height: "280px",
-
                     overflow: "hidden",
                     position: "relative",
                     background: "#f5f5f5",

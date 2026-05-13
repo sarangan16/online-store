@@ -99,9 +99,7 @@ const About = () => {
             >
               Founded in the heart of Nugegoda, Sri Lanka, SARANS brings
               together an carefully curated selection of cosmetics, skincare,
-              fragrances, handbags, and tailoring accessories — all under one
-              roof. We work with trusted brands to bring you products that are
-              genuine, affordable, and beautiful.
+              fragrances, handbags, and tailoring accessories
             </p>
           </div>
           <div
@@ -215,56 +213,39 @@ const About = () => {
         >
           <p
             style={{
-              color: "#999",
-              fontSize: "10px",
-              letterSpacing: "0.4em",
-              textTransform: "uppercase",
-              fontFamily: "Jost, sans-serif",
-              marginBottom: "16px",
-            }}
-          >
-            Visit Us
-          </p>
-          <p
-            style={{
               fontFamily: "Cormorant Garamond, serif",
               fontSize: "28px",
               color: "#111",
-              marginBottom: "8px",
+              marginBottom: "12px",
               fontWeight: 400,
             }}
           >
-            Nugegoda, Colombo
+            Come say hello.
           </p>
           <p
             style={{
               color: "#555",
               fontFamily: "Jost, sans-serif",
               fontSize: "13px",
-              marginBottom: "4px",
+              marginBottom: "24px",
             }}
           >
-            Sri Lanka
+            We're based in Nugegoda, Colombo — visit us in store or get in touch
+            online.
           </p>
-          <p
+          <a
+            href="/contact"
             style={{
-              color: "#555",
               fontFamily: "Jost, sans-serif",
-              fontSize: "13px",
-              marginBottom: "4px",
+              fontSize: "11px",
+              letterSpacing: "0.3em",
+              textTransform: "uppercase",
+              color: "#111",
+              textDecoration: "underline",
             }}
           >
-            Every day, 9am – 9pm
-          </p>
-          <p
-            style={{
-              color: "#555",
-              fontFamily: "Jost, sans-serif",
-              fontSize: "13px",
-            }}
-          >
-            info.sarans@gmail.com · @sarans.lk
-          </p>
+            Contact Us →
+          </a>
         </div>
       </div>
     </div>

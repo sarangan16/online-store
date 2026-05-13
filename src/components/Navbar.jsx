@@ -67,6 +67,7 @@ const Navbar = ({
           {/* logo */}
           <Link
             to="/"
+            onClick={() => window.scrollTo(0, 0)}
             style={{
               fontFamily: "Cormorant Garamond, serif",
               fontSize: "20px",
@@ -88,18 +89,29 @@ const Navbar = ({
               gap: "40px",
             }}
           >
-            <Link
-              to="/"
-              className="font-body text-xs tracking-widest uppercase text-sarans-muted hover:text-sarans-text transition-colors duration-300 relative group"
-              style={{ color: "#555", textDecoration: "none" }}
+            <a
+              href="/#home"
+              style={{
+                color: "#555",
+                textDecoration: "none",
+                fontSize: "11px",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                fontFamily: "Jost, sans-serif",
+              }}
             >
               Store
-              <span className="absolute left-0 -bottom-1 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
-            </Link>
+            </a>
             <Link
               to="/contact"
-              className="font-body text-xs tracking-widest uppercase transition-colors duration-300 relative group"
-              style={{ color: "#555", textDecoration: "none" }}
+              style={{
+                color: "#555",
+                textDecoration: "none",
+                fontSize: "11px",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                fontFamily: "Jost, sans-serif",
+              }}
             >
               Contact
               <span className="absolute left-0 -bottom-1 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />

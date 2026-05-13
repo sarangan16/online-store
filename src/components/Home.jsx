@@ -80,12 +80,12 @@ const Home = ({ addToCart }) => {
       style={{
         maxWidth: "1280px",
         margin: "0 auto",
-        padding: "80px 20px",
+        padding: "40px 20px",
         backgroundColor: "#ffffff",
       }}
     >
       {/* section heading */}
-      <div style={{ textAlign: "center", marginBottom: "48px" }}>
+      <div style={{ textAlign: "center", marginBottom: "24px" }}>
         <p
           style={{
             color: "#999",
@@ -101,7 +101,7 @@ const Home = ({ addToCart }) => {
         <h2
           style={{
             fontFamily: "Cormorant Garamond, serif",
-            fontSize: "52px",
+            fontSize: "36px",
             color: "#111",
           }}
         >
@@ -213,7 +213,7 @@ const Home = ({ addToCart }) => {
                 <div
                   style={{
                     width: "100%",
-                    height: "280px",
+                    height: "200px",
                     overflow: "hidden",
                     position: "relative",
                     background: "#f5f5f5",

@@ -9,6 +9,10 @@ const Product = ({ addToCart }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     fetch(`https://dummyjson.com/products/${id}`)
       .then((res) => res.json())
       .then((data) => setProduct(data))
@@ -71,7 +75,7 @@ const Product = ({ addToCart }) => {
 
   return (
     <div
-      style={{ minHeight: "100vh", paddingTop: "120px", paddingBottom: "80px" }}
+      style={{ minHeight: "100vh", paddingTop: "80px", paddingBottom: "40px" }}
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 40px" }}>
         {/* back button */}
@@ -100,8 +104,8 @@ const Product = ({ addToCart }) => {
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
-            gap: "60px",
-            marginBottom: "80px",
+            gap: "40px",
+            marginBottom: "40px",
           }}
         >
           {/* image */}
@@ -155,7 +159,7 @@ const Product = ({ addToCart }) => {
               <h1
                 style={{
                   fontFamily: "Cormorant Garamond, serif",
-                  fontSize: "42px",
+                  fontSize: "28px",
                   color: "#111",
                   lineHeight: 1.1,
                 }}
@@ -209,7 +213,7 @@ const Product = ({ addToCart }) => {
             <p
               style={{
                 fontFamily: "Cormorant Garamond, serif",
-                fontSize: "36px",
+                fontSize: "26",
                 color: "#111",
               }}
             >
@@ -254,11 +258,11 @@ const Product = ({ addToCart }) => {
 
         {/* reviews */}
         <div>
-          <div style={{ textAlign: "center", marginBottom: "48px" }}>
+          <div style={{ textAlign: "center", marginBottom: "24px" }}>
             <h2
               style={{
                 fontFamily: "Cormorant Garamond, serif",
-                fontSize: "42px",
+                fontSize: "28px",
                 color: "#111",
               }}
             >

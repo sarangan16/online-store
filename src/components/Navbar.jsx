@@ -107,6 +107,19 @@ const Navbar = ({
                 Store
               </a>
               <Link
+                to="/about"
+                style={{
+                  color: "#555",
+                  textDecoration: "none",
+                  fontSize: "11px",
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  fontFamily: "Jost, sans-serif",
+                }}
+              >
+                Our Story
+              </Link>
+              <Link
                 to="/contact"
                 style={{
                   color: "#555",
@@ -232,6 +245,20 @@ const Navbar = ({
           >
             Store
           </a>
+          <Link
+            to="/about"
+            onClick={() => setIsMenuOpen(false)}
+            style={{
+              color: "#111",
+              textDecoration: "none",
+              fontSize: "11px",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              fontFamily: "Jost, sans-serif",
+            }}
+          >
+            Our Story
+          </Link>
           <Link
             to="/contact"
             onClick={() => setIsMenuOpen(false)}

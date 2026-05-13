@@ -4,7 +4,12 @@ import { FaShoppingCart } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { loadStripe } from "@stripe/stripe-js";
 
-const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
+const Navbar = ({
+  cartItems,
+  removeFromCart,
+  increaseQuantity,
+  decreaseQuantity,
+}) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const makePayment = async () => {
@@ -25,7 +30,11 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
   };
 
   const cartTotal = cartItems
-    .reduce((sum, item) => sum + (parseFloat(item.price) || 12.99), 0)
+    .reduce(
+      (sum, item) =>
+        sum + (parseFloat(item.price) || 12.99) * (item.quantity || 1),
+      0,
+    )
     .toFixed(2);
 
   return (
@@ -118,15 +127,19 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
                       color: "#ffffff",
                       fontSize: "10px",
                       fontWeight: "bold",
-                      borderRadius: "50%",
-                      width: "16px",
-                      height: "16px",
+                      borderRadius: "10px",
+                      minWidth: "18px",
+                      height: "18px",
+                      padding: "0 4px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                     }}
                   >
-                    {cartItems.length}{" "}
+                    {cartItems.reduce(
+                      (sum, item) => sum + (item.quantity || 1),
+                      0,
+                    )}
                   </span>
                 )}
               </button>
@@ -178,7 +191,8 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
           <div>
             <h2 className="font-display text-2xl text-sarans-text">Your Bag</h2>
             <p className="font-body text-xs tracking-widest text-sarans-muted mt-1">
-              {cartItems.length} {cartItems.length === 1 ? "item" : "items"}
+              {cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0)}{" "}
+              items{" "}
             </p>
           </div>
           <button
@@ -239,21 +253,79 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
                 />
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <p
-                    className="font-body text-xs text-sarans-text"
                     style={{
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       whiteSpace: "nowrap",
+                      fontSize: "12px",
+                      color: "#111",
+                      fontFamily: "Jost, sans-serif",
                     }}
                   >
                     {item.title}
                   </p>
-                  <p
-                    className="font-body text-sm"
-                    style={{ color: "#111", marginTop: "4px" }}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      marginTop: "6px",
+                    }}
                   >
-                    ${parseFloat(item.price || 12.99).toFixed(2)}
-                  </p>
+                    <button
+                      onClick={() => decreaseQuantity(item.id)}
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        border: "1px solid #ddd",
+                        background: "none",
+                        cursor: "pointer",
+                        fontSize: "14px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      −
+                    </button>
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        fontFamily: "Jost, sans-serif",
+                        color: "#111",
+                      }}
+                    >
+                      {item.quantity || 1}
+                    </span>
+                    <button
+                      onClick={() => increaseQuantity(item.id)}
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        border: "1px solid #ddd",
+                        background: "none",
+                        cursor: "pointer",
+                        fontSize: "14px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      +
+                    </button>
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        color: "#111",
+                        marginLeft: "4px",
+                      }}
+                    >
+                      $
+                      {(
+                        parseFloat(item.price || 12.99) * (item.quantity || 1)
+                      ).toFixed(2)}
+                    </span>
+                  </div>
                 </div>
                 <button
                   onClick={() => removeFromCart(item.id)}
@@ -274,7 +346,13 @@ const Navbar = ({ cartItems, itemCount, removeFromCart }) => {
         {/* drawer footer */}
         {cartItems.length > 0 && (
           <div style={{ padding: "24px 28px", borderTop: "1px solid #e8e8e8" }}>
-            <div className="gold-divider" style={{ marginBottom: "16px" }} />
+            <div
+              style={{
+                height: "1px",
+                background: "#eee",
+                marginBottom: "16px",
+              }}
+            />
             <div
               style={{
                 display: "flex",

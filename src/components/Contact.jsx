@@ -119,9 +119,10 @@ const Contact = () => {
 
             {/* contact details - looping so i dont repeat myself */}
             {[
+              { label: "Phone", value: "+94 777888424" },
               { label: "Email", value: "info.sarans@gmail.com" },
               { label: "Instagram", value: "@sarans.lk" },
-              { label: "Hours", value: "Mon–Fri, 9am–6pm" },
+              { label: "Hours", value: "Everyday, 9am–9pm" },
             ].map((item) => (
               <div
                 key={item.label}

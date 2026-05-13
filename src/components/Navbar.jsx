@@ -11,6 +11,7 @@ const Navbar = ({
   decreaseQuantity,
 }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const makePayment = async () => {
     const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PK);
@@ -84,38 +85,80 @@ const Navbar = ({
           <div
             style={{
               display: "flex",
-              flexDirection: "row",
               alignItems: "center",
               gap: "40px",
             }}
           >
-            <a
-              href="/#home"
+            <div
+              className="desktop-nav"
+              style={{ gap: "40px", alignItems: "center" }}
+            >
+              <a
+                href="/#home"
+                style={{
+                  color: "#555",
+                  textDecoration: "none",
+                  fontSize: "11px",
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  fontFamily: "Jost, sans-serif",
+                }}
+              >
+                Store
+              </a>
+              <Link
+                to="/contact"
+                style={{
+                  color: "#555",
+                  textDecoration: "none",
+                  fontSize: "11px",
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  fontFamily: "Jost, sans-serif",
+                }}
+              >
+                Contact
+                <span className="absolute left-0 -bottom-1 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+              </Link>
+            </div>
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="hamburger-btn"
               style={{
-                color: "#555",
-                textDecoration: "none",
-                fontSize: "11px",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                fontFamily: "Jost, sans-serif",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                display: "none",
+                flexDirection: "column",
+                gap: "5px",
+                padding: "4px",
               }}
             >
-              Store
-            </a>
-            <Link
-              to="/contact"
-              style={{
-                color: "#555",
-                textDecoration: "none",
-                fontSize: "11px",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                fontFamily: "Jost, sans-serif",
-              }}
-            >
-              Contact
-              <span className="absolute left-0 -bottom-1 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
-            </Link>
+              <span
+                style={{
+                  display: "block",
+                  width: "22px",
+                  height: "2px",
+                  background: "#111",
+                }}
+              />
+              <span
+                style={{
+                  display: "block",
+                  width: "22px",
+                  height: "2px",
+                  background: "#111",
+                }}
+              />
+              <span
+                style={{
+                  display: "block",
+                  width: "22px",
+                  height: "2px",
+                  background: "#111",
+                }}
+              />
+            </button>
 
             {/* cart button */}
             <div style={{ position: "relative" }}>
@@ -159,6 +202,52 @@ const Navbar = ({
           </div>
         </div>
       </nav>
+      {isMenuOpen && (
+        <div
+          style={{
+            position: "fixed",
+            top: "64px",
+            left: 0,
+            right: 0,
+            background: "#fff",
+            borderBottom: "1px solid #e8e8e8",
+            zIndex: 49,
+            padding: "24px 40px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "24px",
+          }}
+        >
+          <a
+            href="/#home"
+            onClick={() => setIsMenuOpen(false)}
+            style={{
+              color: "#111",
+              textDecoration: "none",
+              fontSize: "11px",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              fontFamily: "Jost, sans-serif",
+            }}
+          >
+            Store
+          </a>
+          <Link
+            to="/contact"
+            onClick={() => setIsMenuOpen(false)}
+            style={{
+              color: "#111",
+              textDecoration: "none",
+              fontSize: "11px",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              fontFamily: "Jost, sans-serif",
+            }}
+          >
+            Contact
+          </Link>
+        </div>
+      )}
 
       {/* cart drawer overlay */}
       {isCartOpen && (

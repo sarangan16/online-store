@@ -111,17 +111,16 @@ const About = () => {
               justifyContent: "center",
             }}
           >
-            <p
+            <img
+              src="https://images.unsplash.com/photo-1552046122-03184de85e08?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="SARANS"
               style={{
-                color: "#ccc",
-                fontFamily: "Jost, sans-serif",
-                fontSize: "11px",
-                letterSpacing: "0.3em",
-                textTransform: "uppercase",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
               }}
-            >
-              SARANS
-            </p>
+            />
           </div>
         </div>
 

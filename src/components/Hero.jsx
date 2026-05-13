@@ -187,7 +187,7 @@ const Hero = () => {
                 Shop Collection
               </a>
               <Link
-                to="/contact"
+                to="/about"
                 className="btn-ghost"
                 style={{ color: "#fff", borderColor: "#fff" }}
               >

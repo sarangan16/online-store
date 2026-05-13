@@ -19,9 +19,10 @@ const Footer = () => {
       >
         {/* top section */}
         <div
+          className="grid-3col"
           style={{
             display: "grid",
-            gridTemplateColumns: "2fr 1fr 1fr",
+            gridTemplateColumns: "1fr 1fr 1fr",
             gap: "48px",
             marginBottom: "48px",
           }}
@@ -69,33 +70,33 @@ const Footer = () => {
               style={{ display: "flex", flexDirection: "column", gap: "12px" }}
             >
               {[
-                ["/", "Store"],
+                ["/#home", "Store"],
+                ["/about", "Our Story"],
                 ["/contact", "Contact"],
+                ["/shipping", "Shipping & Returns"],
               ].map(([to, label]) => (
-                <Link
+                <a
                   key={to}
-                  to={to}
+                  href={to}
                   style={{
                     color: "#888",
                     fontFamily: "Jost, sans-serif",
                     fontSize: "13px",
                     textDecoration: "none",
-                    transition: "color 0.2s",
                   }}
                   onMouseEnter={(e) => (e.target.style.color = "#111")}
                   onMouseLeave={(e) => (e.target.style.color = "#888")}
                 >
                   {label}
-                </Link>
+                </a>
               ))}
             </div>
           </div>
 
-          {/* newsletter */}
           <div>
             <p
               style={{
-                color: "#ede8f5",
+                color: "#111",
                 fontSize: "10px",
                 letterSpacing: "0.4em",
                 textTransform: "uppercase",
@@ -103,21 +104,29 @@ const Footer = () => {
                 marginBottom: "20px",
               }}
             >
-              Stay in the Glow
+              Contact
             </p>
-            <div style={{ display: "flex", gap: "0" }}>
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="input-luxury"
-                style={{ flex: 1, fontSize: "12px", padding: "10px 14px" }}
-              />
-              <button
-                className="btn-gold"
-                style={{ padding: "10px 18px", whiteSpace: "nowrap" }}
-              >
-                Join
-              </button>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+            >
+              {[
+                "135 Stanley Thilakaratne Mawatha",
+                "Nugegoda, Colombo, Sri Lanka",
+                "+94 77 788 8424",
+                "info.sarans@gmail.com",
+                "Every day, 9am – 9pm",
+              ].map((line) => (
+                <p
+                  key={line}
+                  style={{
+                    color: "#888",
+                    fontFamily: "Jost, sans-serif",
+                    fontSize: "13px",
+                  }}
+                >
+                  {line}
+                </p>
+              ))}
             </div>
           </div>
         </div>
